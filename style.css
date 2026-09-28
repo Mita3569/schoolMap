@@ -115,6 +115,7 @@ body {
     }
 
     .map-area {
+        left: 20vw;
         min-height: 0;
     }
 
