@@ -13,22 +13,36 @@
 
         <div class="map-container" id="mapContainer">
 
+            <!-- 地図とマーカーをまとめる -->
             <div class="map-content" id="mapContent">
-                <img src="./images/map.png" alt="マップ">
 
+                <img src="./images/map.jpg" alt="マップ"
+                    draggable="false">
+
+                <!-- マーカー -->
                 <button class="marker"
-                        type="button"
                         style="left: 40%; top: 30%;"
                         onclick="showInfo('図書館')">
                     ①
                 </button>
+
+                <button class="marker"
+                        style="left: 65%; top: 60%;"
+                        onclick="showInfo('体育館')">
+                    ②
+                </button>
+
             </div>
 
+            <!-- 拡大・縮小ボタン -->
             <div class="zoom-controls">
                 <button type="button" onclick="zoomIn()">＋</button>
                 <button type="button" onclick="zoomOut()">－</button>
                 <button type="button" onclick="resetZoom()">⟳</button>
             </div>
+
+            <!-- 施設情報 -->
+            <div id="info" class="map-info" hidden></div>
 
         </div>
         </main>
@@ -41,40 +55,229 @@
 
     </div>
 <script>
-let zoom = 1;
 
-const mapContent = document.getElementById("mapContent");
-const mapContainer = document.getElementById("mapContainer");
+const container = document.getElementById("mapContainer");
+const content = document.getElementById("mapContent");
 
-function updateZoom() {
-    mapContent.style.transform = `scale(${zoom})`;
-    console.log("現在の拡大率:", zoom);
+let zoom = 1.5;
+const minZoom = 1;
+const maxZoom = 5;
+
+let x = 0;
+let y = 0;
+
+const pointers = new Map();
+let dragStart = null;
+let pinchStart = null;
+
+// 地図の移動範囲を制限
+function clampPosition() {
+    const rect = container.getBoundingClientRect();
+
+    const minX = rect.width * (1 - zoom);
+    const minY = rect.height * (1 - zoom);
+
+    x = Math.max(minX, Math.min(0, x));
+    y = Math.max(minY, Math.min(0, y));
 }
 
+// 地図の位置と拡大率を反映
+function updateMap() {
+    clampPosition();
+    content.style.transform =
+        `translate3d(${x}px, ${y}px, 0) scale(${zoom})`;
+}
+
+// 初期位置を中央に設定
+function initializeMap() {
+    const rect = container.getBoundingClientRect();
+
+    zoom = 1.5;
+    x = rect.width * (1 - zoom) / 2;
+    y = rect.height * (1 - zoom) / 2;
+
+    updateMap();
+}
+
+// 指定した位置を中心に拡大・縮小
+function zoomAt(newZoom, cx, cy) {
+    newZoom = Math.max(minZoom, Math.min(maxZoom, newZoom));
+
+    const ratio = newZoom / zoom;
+
+    x = cx - (cx - x) * ratio;
+    y = cy - (cy - y) * ratio;
+
+    zoom = newZoom;
+    updateMap();
+}
+
+// 拡大ボタン
 function zoomIn() {
-    zoom = Math.min(zoom + 0.25, 4);
-    updateZoom();
+    const rect = container.getBoundingClientRect();
+    zoomAt(zoom * 1.25, rect.width / 2, rect.height / 2);
 }
 
+// 縮小ボタン
 function zoomOut() {
-    zoom = Math.max(zoom - 0.25, 1);
-    updateZoom();
+    const rect = container.getBoundingClientRect();
+    zoomAt(zoom / 1.25, rect.width / 2, rect.height / 2);
 }
 
+// 初期状態に戻す
 function resetZoom() {
-    zoom = 1;
-    updateZoom();
+    initializeMap();
 }
 
-mapContainer.addEventListener("wheel", function(event) {
+// 指の間の距離
+function getDistance(a, b) {
+    return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
+// 指2本の中間地点
+function getMidpoint(a, b) {
+    return {
+        x: (a.x + b.x) / 2,
+        y: (a.y + b.y) / 2
+    };
+}
+
+// 指で地図を操作
+container.addEventListener("pointerdown", (event) => {
+    // マーカーや操作ボタンのクリックを妨げない
+    if (event.target.closest("button")) return;
+
+    event.preventDefault();
+    container.setPointerCapture(event.pointerId);
+
+    const rect = container.getBoundingClientRect();
+    const point = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+    };
+
+    pointers.set(event.pointerId, point);
+
+    if (pointers.size === 1) {
+        dragStart = {
+            x: point.x,
+            y: point.y,
+            mapX: x,
+            mapY: y
+        };
+        pinchStart = null;
+    }
+
+    if (pointers.size === 2) {
+        const [a, b] = [...pointers.values()];
+        const mid = getMidpoint(a, b);
+
+        pinchStart = {
+            distance: getDistance(a, b),
+            zoom: zoom,
+            x: x,
+            y: y,
+            midX: mid.x,
+            midY: mid.y,
+            anchorX: (mid.x - x) / zoom,
+            anchorY: (mid.y - y) / zoom
+        };
+
+        dragStart = null;
+    }
+});
+
+// 指を動かしたとき
+container.addEventListener("pointermove", (event) => {
+    if (!pointers.has(event.pointerId)) return;
+
+    const rect = container.getBoundingClientRect();
+    pointers.set(event.pointerId, {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+    });
+
+    if (pointers.size >= 2 && pinchStart) {
+        const [a, b] = [...pointers.values()];
+        const mid = getMidpoint(a, b);
+        const distance = getDistance(a, b);
+
+        const newZoom = Math.max(
+            minZoom,
+            Math.min(
+                maxZoom,
+                pinchStart.zoom *
+                    distance / Math.max(pinchStart.distance, 1)
+            )
+        );
+
+        // 2本指の中間地点を基準に拡大
+        zoom = newZoom;
+        x = mid.x - pinchStart.anchorX * zoom;
+        y = mid.y - pinchStart.anchorY * zoom;
+
+        updateMap();
+
+    } else if (pointers.size === 1 && dragStart) {
+        const point = pointers.get(event.pointerId);
+
+        x = dragStart.mapX + point.x - dragStart.x;
+        y = dragStart.mapY + point.y - dragStart.y;
+
+        updateMap();
+    }
+});
+
+// 指を離したとき
+function endPointer(event) {
+    if (!pointers.has(event.pointerId)) return;
+
+    pointers.delete(event.pointerId);
+
+    if (pointers.size === 1) {
+        const [id, point] = [...pointers.entries()][0];
+
+        dragStart = {
+            x: point.x,
+            y: point.y,
+            mapX: x,
+            mapY: y
+        };
+        pinchStart = null;
+
+    } else {
+        dragStart = null;
+        pinchStart = null;
+    }
+}
+
+container.addEventListener("pointerup", endPointer);
+container.addEventListener("pointercancel", endPointer);
+
+// マウスホイールにも対応
+container.addEventListener("wheel", (event) => {
     event.preventDefault();
 
-    if (event.deltaY < 0) {
-        zoomIn();
-    } else {
-        zoomOut();
-    }
+    const rect = container.getBoundingClientRect();
+    const cx = event.clientX - rect.left;
+    const cy = event.clientY - rect.top;
+
+    const factor = event.deltaY < 0 ? 1.15 : 1 / 1.15;
+    zoomAt(zoom * factor, cx, cy);
 }, { passive: false });
+
+// 施設情報の表示
+function showInfo(name) {
+    const info = document.getElementById("info");
+    info.textContent = name;
+    info.hidden = false;
+}
+
+// 画面サイズ変更時に地図が表示範囲外へ出ないようにする
+window.addEventListener("resize", updateMap);
+
+// 初期化
+initializeMap();
 </script>
 
 </body>
