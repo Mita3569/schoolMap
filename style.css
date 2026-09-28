@@ -46,7 +46,7 @@ body {
 .map-container {
     position: relative;
     width: 100%;
-    max-width: 824px;
+    max-width: 80vw;
     aspect-ratio: 824 / 444;
     border: 2px solid #fff;
 }
