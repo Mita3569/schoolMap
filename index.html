@@ -7,35 +7,65 @@
     <title>School Map</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<script>
-const mapContainer = document.getElementById("mapContainer");
-const mapContent = document.getElementById("mapContent");
+<body>
 
+    <div class="layout">
+
+        <div class="map-container" id="mapContainer">
+
+            <div class="map-content" id="mapContent">
+                <img src="./images/map.png" alt="マップ">
+
+                <button class="marker"
+                        type="button"
+                        style="left: 40%; top: 30%;"
+                        onclick="showInfo('図書館')">
+                    ①
+                </button>
+            </div>
+
+            <div class="zoom-controls">
+                <button type="button" onclick="zoomIn()">＋</button>
+                <button type="button" onclick="zoomOut()">－</button>
+                <button type="button" onclick="resetZoom()">⟳</button>
+            </div>
+
+        </div>
+        </main>
+
+        <!-- 操作説明欄 -->
+        <aside class="sidebar">
+            <h2>操作説明</h2>
+            <p>マップの操作方法を表示します。</p>
+        </aside>
+
+    </div>
+<script>
 let zoom = 1;
+
+const mapContent = document.getElementById("mapContent");
+const mapContainer = document.getElementById("mapContainer");
 
 function updateZoom() {
     mapContent.style.transform = `scale(${zoom})`;
+    console.log("現在の拡大率:", zoom);
 }
 
-// 拡大
 function zoomIn() {
-    zoom = Math.min(zoom + 0.2, 4);
+    zoom = Math.min(zoom + 0.25, 4);
     updateZoom();
 }
 
-// 縮小
 function zoomOut() {
-    zoom = Math.max(zoom - 0.2, 1);
+    zoom = Math.max(zoom - 0.25, 1);
     updateZoom();
 }
 
-// 元のサイズに戻す
 function resetZoom() {
     zoom = 1;
     updateZoom();
 }
 
-// マウスホイールで拡大・縮小
 mapContainer.addEventListener("wheel", function(event) {
     event.preventDefault();
 
@@ -46,58 +76,6 @@ mapContainer.addEventListener("wheel", function(event) {
     }
 }, { passive: false });
 </script>
-<body>
-
-    <div class="layout">
-
-        <!-- マップ表示エリア -->
-        <main class="map-area">
-            <div class="map-container"><div class="map-container" id="mapContainer">
-
-            <!-- 地図とマーカーをまとめる -->
-            <div class="map-content" id="mapContent">
-
-                <img src="./images/map.jpg" alt="マップ">
-
-                <!-- マーカー -->
-                <button class="marker"
-                        style="left: 40%; top: 30%;"
-                        onclick="showInfo('図書館')">
-                    ①
-                </button>
-
-                <button class="marker"
-                        style="left: 65%; top: 60%;"
-                        onclick="showInfo('体育館')">
-                    ②
-                </button>
-
-            </div>
-
-            <!-- 拡大・縮小ボタン -->
-            <div class="zoom-controls">
-                <button onclick="zoomIn()" aria-label="拡大">＋</button>
-                <button onclick="zoomOut()" aria-label="縮小">－</button>
-                <button onclick="resetZoom()" aria-label="元のサイズに戻す">⟳</button>
-            </div>
-
-        </div>
-            </div>
-        </main>
-
-        <!-- 操作説明欄 -->
-        <aside class="sidebar">
-            <h2>操作説明</h2>
-            <p>マップの操作方法を表示します。</p>
-        </aside>
-
-    </div>
-
-    <script>
-        function showInfo(name) {
-            alert(name);
-        }
-    </script>
 
 </body>
 </html>
