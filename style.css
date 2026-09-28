@@ -1,0 +1,20 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.map-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.map-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
