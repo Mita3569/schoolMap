@@ -10,6 +10,14 @@
 <body>
 
     <div class="layout">
+        <!-- 現在地の座標表示 -->
+        <div id="location-display">
+        <strong>現在の位置情報</strong>
+        <p>緯度：取得待ち</p>
+        <p>経度：取得待ち</p>
+        <p>精度：取得待ち</p>
+        <p>状態：位置情報を取得中...</p>
+        </div>
 
         <meta name="viewport"
             content="width=device-width, initial-scale=1.0">
@@ -272,18 +280,28 @@ function startLocationTracking() {
     );
 }
 
-// 位置情報を取得できたとき
+// ========================================
+// 位置情報を取得したときの処理
+// ========================================
+
 function onLocationSuccess(position) {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
     const accuracy = position.coords.accuracy;
 
-    console.log("緯度:", lat);
-    console.log("経度:", lon);
-    console.log("精度:", accuracy, "m");
+    // 現在地表示欄を更新
+    const display = document.getElementById("location-display");
 
-    // 次の段階で、緯度・経度を画像座標に変換し、
-    // 現在地マーカーを移動させる処理を追加する
+    display.innerHTML = `
+        <strong>現在の位置情報</strong>
+        <p>緯度：${lat.toFixed(6)}</p>
+        <p>経度：${lon.toFixed(6)}</p>
+        <p>精度：約${Math.round(accuracy)} m</p>
+        <p>状態：取得中・更新済み</p>
+    `;
+
+    // 地図上の現在地マーカー処理は、
+    // 地図の範囲内にいる場合だけ別途実行する
 }
 
 // 位置情報を取得できなかったとき
