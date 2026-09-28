@@ -11,15 +11,16 @@
 
     <div class="layout">
 
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
         <div class="map-container" id="mapContainer">
 
-            <!-- 地図とマーカーをまとめる -->
             <div class="map-content" id="mapContent">
-
-                <img src="./images/map.jpg" alt="マップ"
+                <img src="./images/map.jpg"
+                    alt="マップ"
                     draggable="false">
 
-                <!-- マーカー -->
                 <button class="marker"
                         style="left: 40%; top: 30%;"
                         onclick="showInfo('図書館')">
@@ -31,17 +32,14 @@
                         onclick="showInfo('体育館')">
                     ②
                 </button>
-
             </div>
 
-            <!-- 拡大・縮小ボタン -->
             <div class="zoom-controls">
                 <button type="button" onclick="zoomIn()">＋</button>
                 <button type="button" onclick="zoomOut()">－</button>
                 <button type="button" onclick="resetZoom()">⟳</button>
             </div>
 
-            <!-- 施設情報 -->
             <div id="info" class="map-info" hidden></div>
 
         </div>
@@ -137,6 +135,15 @@ function getMidpoint(a, b) {
 
 // 指で地図を操作
 container.addEventListener("pointerdown", (event) => {
+        function onPointerDown(event) {
+        if (event.target.closest("button")) return;
+
+        isDragging = true;
+        lastX = event.clientX;
+        lastY = event.clientY;
+
+        mapContainer.setPointerCapture(event.pointerId);
+    }
     // マーカーや操作ボタンのクリックを妨げない
     if (event.target.closest("button")) return;
 
@@ -181,14 +188,22 @@ container.addEventListener("pointerdown", (event) => {
 });
 
 // 指を動かしたとき
-container.addEventListener("pointermove", (event) => {
-    if (!pointers.has(event.pointerId)) return;
+    function onPointerMove(event) {
+        if (!isDragging) return;
 
-    const rect = container.getBoundingClientRect();
-    pointers.set(event.pointerId, {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-    });
+        // 指の移動距離をそのまま地図に反映
+        const dx = event.clientX - lastX;
+        const dy = event.clientY - lastY;
+
+        x += dx;
+        y += dy;
+
+        lastX = event.clientX;
+        lastY = event.clientY;
+
+        clampPosition();
+        updateTransform();
+    }
 
     if (pointers.size >= 2 && pinchStart) {
         const [a, b] = [...pointers.values()];
@@ -219,7 +234,6 @@ container.addEventListener("pointermove", (event) => {
 
         updateMap();
     }
-});
 
 // 指を離したとき
 function endPointer(event) {
