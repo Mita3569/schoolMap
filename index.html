@@ -47,6 +47,25 @@
     </div>
 <script>
 
+const watchId = navigator.geolocation.watchPosition(
+  (position) => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const accuracy = position.coords.accuracy;
+
+    // 緯度・経度を画像上の座標に変換
+    // 変換した位置に現在地マーカーを移動
+  },
+  (error) => {
+    console.error("位置情報を取得できませんでした", error);
+  },
+  {
+    enableHighAccuracy: true,
+    maximumAge: 1000,
+    timeout: 10000
+  }
+);
+
 const container = document.getElementById("mapContainer");
 const content = document.getElementById("mapContent");
 
