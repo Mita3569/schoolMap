@@ -13,15 +13,36 @@
 
         <!-- マップ表示エリア -->
         <main class="map-area">
-            <div class="map-container">
+            <div class="map-container"><div class="map-container" id="mapContainer">
+
+            <!-- 地図とマーカーをまとめる -->
+            <div class="map-content" id="mapContent">
+
                 <img src="./images/map.jpg" alt="マップ">
 
                 <!-- マーカー -->
                 <button class="marker"
-                        style="left: 50%; top: 50%;"
-                        onclick="showInfo('地点①')">
+                        style="left: 40%; top: 30%;"
+                        onclick="showInfo('図書館')">
                     ①
                 </button>
+
+                <button class="marker"
+                        style="left: 65%; top: 60%;"
+                        onclick="showInfo('体育館')">
+                    ②
+                </button>
+
+            </div>
+
+            <!-- 拡大・縮小ボタン -->
+            <div class="zoom-controls">
+                <button onclick="zoomIn()" aria-label="拡大">＋</button>
+                <button onclick="zoomOut()" aria-label="縮小">－</button>
+                <button onclick="resetZoom()" aria-label="元のサイズに戻す">⟳</button>
+            </div>
+
+        </div>
             </div>
         </main>
 
