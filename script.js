@@ -293,6 +293,10 @@ function updateLocationDisplay(position) {
 
     document.getElementById("location-status").textContent =
         "状態：取得中・更新済み";
+    document.getElementById("location-mapx").textContent =
+        `マップX座標：${userPosX.toFixed(6)}`;
+    document.getElementById("location-mapy").textContent =
+        `マップY座標：${userPosY.toFixed(6)}`;
 
     // ここで地図上への座標変換・マーカー移動を行う。
     // 自作地図の基準座標が未設定のため、
@@ -307,6 +311,11 @@ function updateLocationDisplay(position) {
 // 位置情報を取得できたとき
 function onLocationSuccess(position) {
     updateLocationDisplay(position);
+
+    const sin86 = Math.sin(Math.PI * (43 / 90));
+    const sin4 = Math.sin(Math.PI * (1 / 45));
+    const userPosX = lon / Math.sin(Math.PI / 2) * sin86;
+    const userPosY = lon / Math.sin(Math.PI / 2) * sin4;
 }
 
 // 位置情報を取得できなかったとき
