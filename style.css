@@ -288,4 +288,6 @@ button {
     cursor: pointer;
     font: inherit;
     touch-action: manipulation;
+    top: auto;
+    
 }
