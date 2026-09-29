@@ -283,9 +283,9 @@ function updateLocationFromInput() {
 function updateLocationDisplay(position) {
     const baseLat = 35.4558251799561; // 基準地点(画像中心点)の緯度
     const baseLon = 133.28912472246355; // 基準地点(画像中心点)の経度
-//    const lat = position.coords.latitude;
-//    const lon = position.coords.longitude;
-    
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
         .toLocaleTimeString("ja-JP");
@@ -343,6 +343,13 @@ function updateLocationDisplay(position) {
         `マップYピクセル：${userMarkerY.toFixed(2)}`;
 
     // ここで地図上への座標変換・マーカー移動を行う。
+    const currentMarkerx = userMarkerX;
+    const currentMarkery = userMarkerY;
+    document.getElementById("marker-current").style.left =
+        `${currentMarkerx}px`;
+    document.getElementById("marker-current").style.top =
+        `${currentMarkery}px`;
+    document.getElementById("marker-current").hidden = false;
     // 自作地図の基準座標が未設定のため、
     // 現時点では座標表示のみ。
 }
