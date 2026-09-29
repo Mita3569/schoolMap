@@ -279,11 +279,23 @@ function updateLocationDisplay(position) {
     currentLatitude = lat;
     currentLongitude = lon;
     
+// 回転角度（反時計回り39.7度）
+const angle = 39.7 * Math.PI / 180;
 
-    const sin86 = Math.sin(Math.PI * (43 / 90));
-    const sin4 = Math.sin(Math.PI * (1 / 45));
-    const userPosX = lon / Math.sin(Math.PI / 2) * sin86;
-    const userPosY = lon / Math.sin(Math.PI / 2) * sin4 + lat;
+    // 基準地点からの東西・南北の距離
+    const north = (lat - baseLat) * 111320;
+    const east =
+        (lon - baseLon) * 111320 *
+        Math.cos(baseLat * Math.PI / 180);
+
+    // 回転後の座標
+    const userPosX =
+        east * Math.cos(angle) -
+        north * Math.sin(angle);
+
+    const userPosY =
+        east * Math.sin(angle) +
+        north * Math.cos(angle);
 
     document.getElementById("location-lat").textContent =
         `緯度：${lat.toFixed(6)}`;
