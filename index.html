@@ -9,7 +9,8 @@
 </head>
 
 <body>
-
+  <input type="text", id="location-input" placeholder="緯度,経度を入力" aria-label="緯度と経度をカンマ区切りで入力してください">
+  <button type="button" onclick="updateLocationFromInput()">更新</button>
   <!-- 地図表示エリア -->
   <main id="map-container">
     <div id="map-content">
@@ -46,8 +47,6 @@
   </main>
 
   <!-- 現在地の座標表示 -->
-  <input type="text", id="location-input" placeholder="緯度,経度を入力" aria-label="緯度と経度をカンマ区切りで入力してください">
-
   <section id="location-display"
            aria-live="polite">
     <strong>現在の位置情報</strong>

@@ -263,6 +263,17 @@ function hideInfo() {
     document.getElementById("info").hidden = true;
 }
 
+function updateLocationFromInput() {
+    const input = document.getElementById("location-input").value;
+    const [latStr, lonStr] = input.split(",");
+    const lat = parseFloat(latStr);
+    const lon = parseFloat(lonStr);
+
+    if (isNaN(lat) || isNaN(lon)) {
+        alert("有効な緯度と経度を入力してください。");
+        return;
+    }
+}
 
 // ========================================
 // 6. 現在地の座標表示
@@ -274,8 +285,7 @@ function updateLocationDisplay(position) {
     const baseLon = 133.28912472246355; // 基準地点(画像中心点)の経度
 //    const lat = position.coords.latitude;
 //    const lon = position.coords.longitude;
-    const lat = parseFloat(document.getElementById("location-input").value.split(",")[0]);
-    const lon = parseFloat(document.getElementById("location-input").value.split(",")[1]);
+    
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
         .toLocaleTimeString("ja-JP");
