@@ -278,6 +278,12 @@ function updateLocationDisplay(position) {
 
     currentLatitude = lat;
     currentLongitude = lon;
+    
+
+    const sin86 = Math.sin(Math.PI * (43 / 90));
+    const sin4 = Math.sin(Math.PI * (1 / 45));
+    const userPosX = lon / Math.sin(Math.PI / 2) * sin86;
+    const userPosY = lon / Math.sin(Math.PI / 2) * sin4;
 
     document.getElementById("location-lat").textContent =
         `緯度：${lat.toFixed(6)}`;
@@ -311,11 +317,6 @@ function updateLocationDisplay(position) {
 // 位置情報を取得できたとき
 function onLocationSuccess(position) {
     updateLocationDisplay(position);
-
-    const sin86 = Math.sin(Math.PI * (43 / 90));
-    const sin4 = Math.sin(Math.PI * (1 / 45));
-    const userPosX = lon / Math.sin(Math.PI / 2) * sin86;
-    const userPosY = lon / Math.sin(Math.PI / 2) * sin4;
 }
 
 // 位置情報を取得できなかったとき
