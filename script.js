@@ -283,8 +283,10 @@ function updateLocationFromInput() {
 function updateLocationDisplay(position) {
     const baseLat = 35.4558251799561; // 基準地点(画像中心点)の緯度
     const baseLon = 133.28912472246355; // 基準地点(画像中心点)の経度
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
+//    const lat = position.coords.latitude;
+//    const lon = position.coords.longitude;
+    const lat = 35.45530032022659; // 仮の緯度
+    const lon = 133.2895547000474; //  仮の経度
 
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
