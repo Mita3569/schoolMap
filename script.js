@@ -398,9 +398,9 @@ function updateLocationDisplay(position) {
 
     // ここで地図上への座標変換・マーカー移動を行う。
     document.getElementById("current-location-marker").style.left =
-        `${userMarker.x + 3000}px`;
+        `${-1 * (userMarker.x + 3000)}px`;
     document.getElementById("current-location-marker").style.top =
-        `${userMarker.y + 2600}px`;
+        `${-1 * (userMarker.y + 2600)}px`;
     document.getElementById("current-location-marker").hidden = false;
     // 自作地図の基準座標が未設定のため、
     // 現時点では座標表示のみ。
