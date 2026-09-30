@@ -395,14 +395,6 @@ function updateLocationDisplay(position) {
 
     document.getElementById("location-status").textContent =
         "状態：取得中・更新済み";
-    document.getElementById("location-mapx").textContent =
-        `マップX座標：${userPosX.toFixed(6)}`;
-    document.getElementById("location-mapy").textContent =
-        `マップY座標：${userPosY.toFixed(6)}`;
-    document.getElementById("location-px").textContent =
-        `マップXピクセル：${userMarker.x.toFixed(2)}`;
-    document.getElementById("location-py").textContent =
-        `マップYピクセル：${userMarker.y.toFixed(2)}`;
 
     // ここで地図上への座標変換・マーカー移動を行う。
     document.getElementById("current-location-marker").style.left =
