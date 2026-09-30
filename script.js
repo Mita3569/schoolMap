@@ -284,7 +284,7 @@ function updateLocationFromInput() {
 function updateLocationDisplay(position) {
     
     const map = document.getElementById("map-image");
-    const marker = document.getElementById("marker-current");
+    const marker = document.getElementById("current-location-marker");
 
     const points = [
         { lat:35.457472480098886, lon: 133.28891953034304, x: 0, y: 0},
@@ -405,11 +405,11 @@ function updateLocationDisplay(position) {
         `マップYピクセル：${userMarker.y.toFixed(2)}`;
 
     // ここで地図上への座標変換・マーカー移動を行う。
-    document.getElementById("marker-current").style.left =
+    document.getElementById("current-location-marker").style.left =
         `${userMarker.x + 3000}px`;
-    document.getElementById("marker-current").style.top =
+    document.getElementById("current-location-marker").style.top =
         `${userMarker.y + 2600}px`;
-    document.getElementById("marker-current").hidden = false;
+    document.getElementById("current-location-marker").hidden = false;
     // 自作地図の基準座標が未設定のため、
     // 現時点では座標表示のみ。
 }
