@@ -286,9 +286,9 @@ function updateLocationDisplay(position) {
 
     const points = [
         { lat:35.45682539951431, lon: 133.288384668228, x: 0, y: 0},
-        { lat:35.45557609970713, lon: 133.28733813484686, x: 0, y: 665.33},
+        { lat:35.45557609970713, lon: 133.28733813484686, x: 0, y: 665},
         { lat:35.45558926304154, lon: 133.29101448263833, x: 1280, y: 0},
-        { lat:35.454090077911886, lon: 133.29005816765212, x: 1280, y: 665.33}
+        { lat:35.454090077911886, lon: 133.29005816765212, x: 1280, y: 665}
     ]
     function latLonToPixel(lat, lon) {
     const topLeft = points[0];
@@ -342,7 +342,7 @@ function updateLocationDisplay(position) {
 
     // ここで地図上への座標変換・マーカー移動を行う。
     const scaleX = mapImage.clientWidth / 1280;
-    const scaleY = mapImage.clientHeight / 665.33;
+    const scaleY = mapImage.clientHeight / 665;
     currentMarker.style.left = `${userMarker.x * scaleX}px`;
     currentMarker.style.top = `${userMarker.y * scaleY}px`;
 
