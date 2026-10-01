@@ -339,12 +339,11 @@ function updateLocationDisplay(position) {
         "状態：取得中・更新済み";
 
     // ここで地図上への座標変換・マーカー移動を行う。
-    console.log("lat", lat);
-    console.log("lon", lon);
-    console.log("x", userMarker.x);
-    console.log("y", userMarker.y);
-    currentMarker.style.left = `${userMarker.x}px`;
-    currentMarker.style.top = `${userMarker.y}px`;
+    const scaleX = mapImage.clientWidth / 1280;
+    const scaleY = mapImage.clientHeight / 665.33;
+    currentMarker.style.left = `${userMarker.x * scaleX}px`;
+    currentMarker.style.top = `${userMarker.y * scaleY}px`;
+    
     document.getElementById("current-location-marker").hidden = false;
     // 自作地図の基準座標が未設定のため、
     // 現時点では座標表示のみ。
