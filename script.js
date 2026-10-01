@@ -282,8 +282,6 @@ function updateLocationFromInput() {
 
 // 取得した位置情報を画面に表示
 function updateLocationDisplay(position) {
-    
-    const map = document.getElementById("map-image");
     const currentMarker = document.getElementById("current-location-marker");
 
     const points = [
@@ -326,10 +324,10 @@ function updateLocationDisplay(position) {
     const userMarker = latLonToPixel(lat, lon);
 
     document.getElementById("location-lat").textContent =
-        `緯度：${userLat.toFixed(6)}`;
+        `緯度：${lat.toFixed(6)}`;
 
     document.getElementById("location-lon").textContent =
-        `経度：${userLon.toFixed(6)}`;
+        `経度：${lon.toFixed(6)}`;
 
     document.getElementById("location-accuracy").textContent =
         `精度：約${Math.round(accuracy)} m`;
