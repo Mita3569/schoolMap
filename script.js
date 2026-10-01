@@ -6,7 +6,7 @@ const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
 
-console.log("version 1.0.1.3");
+console.log("version 1.0.2");
 
 // ズーム設定
 let zoom = 1;
@@ -344,7 +344,6 @@ function updateLocationDisplay(position) {
     currentLongitude = lon;
 
     const userMarker = latLonToPixel(lat, lon);
-    console.log(userMarker);
 
     document.getElementById("location-lat").textContent =
         `緯度：${lat.toFixed(6)}`;
