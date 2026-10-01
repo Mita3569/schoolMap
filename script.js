@@ -359,7 +359,12 @@ function updateLocationDisplay(position) {
     document.getElementById("location-status").textContent =
         "状態：取得中・更新済み";
 
+
     // ここで地図上への座標変換・マーカー移動を行う。const scaleX = mapImage.clientWidth / 1280;
+
+    // ここで地図上への座標変換・マーカー移動を行う。
+    
+    const scaleX = mapImage.clientWidth / 1280;
     const scaleY = mapImage.clientHeight / 665;
 
     currentMarker.style.left =
