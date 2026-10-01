@@ -349,22 +349,6 @@ function updateLocationDisplay(position) {
     document.getElementById("current-location-marker").hidden = false;
     // 自作地図の基準座標が未設定のため、
     // 現時点では座標表示のみ。
-
-    console.log(
-    "map width:",
-    mapImage.clientWidth
-    );
-     
-    console.log(
-    "map height:",
-    mapImage.clientHeight
-    );
-     
-    console.log(
-    "marker:",
-    userMarker.x,
-    userMarker.y
-    );
 }
 
 
