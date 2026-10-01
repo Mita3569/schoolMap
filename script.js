@@ -341,10 +341,8 @@ function updateLocationDisplay(position) {
         "状態：取得中・更新済み";
 
     // ここで地図上への座標変換・マーカー移動を行う。
-    const scaleX = mapImage.clientWidth / 1280;
-    const scaleY = mapImage.clientHeight / 665;
-    currentMarker.style.left = `${userMarker.x * scaleX}px`;
-    currentMarker.style.top = `${userMarker.y * scaleY}px`;
+    currentMarker.style.left = `${userMarker.x}px`;
+    currentMarker.style.top = `${userMarker.y}px`;
 
     document.getElementById("current-location-marker").hidden = false;
     // 自作地図の基準座標が未設定のため、
