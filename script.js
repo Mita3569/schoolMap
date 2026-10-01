@@ -311,8 +311,10 @@ function updateLocationDisplay(position) {
 
     return { x, y };
 }
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
+//    const lat = position.coords.latitude;
+//    const lon = position.coords.longitude;
+    const lat = 35.45601124336626;
+    const lon = 133.28882661496613;
 
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
@@ -343,7 +345,7 @@ function updateLocationDisplay(position) {
     const scaleY = mapImage.clientHeight / 665.33;
     currentMarker.style.left = `${userMarker.x * scaleX}px`;
     currentMarker.style.top = `${userMarker.y * scaleY}px`;
-    
+
     document.getElementById("current-location-marker").hidden = false;
     // 自作地図の基準座標が未設定のため、
     // 現時点では座標表示のみ。
