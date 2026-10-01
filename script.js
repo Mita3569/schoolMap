@@ -319,10 +319,8 @@ function updateLocationDisplay(position) {
             y: v * 665
         };
     }
-//    const lat = position.coords.latitude;
-//    const lon = position.coords.longitude;
-    const lat = 35.45601124336626;
-    const lon = 133.28882661496613;
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
 
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
