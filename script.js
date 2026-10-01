@@ -284,102 +284,46 @@ function updateLocationFromInput() {
 function updateLocationDisplay(position) {
     
     const map = document.getElementById("map-image");
-    const marker = document.getElementById("current-location-marker");
+    const currentMarker = document.getElementById("current-location-marker");
 
     const points = [
-        { lat:35.457472480098886, lon: 133.28891953034304, x: 0, y: 0},
-        { lat:35.4568340384648, lon: 133.28828170348774, x: 0, y: -1000},
-        { lat:35.453702742820546, lon: 133.28925691009192, x: -3000, y: -2700}
+        { lat:35.45682539951431, lon: 133.288384668228, x: 0, y: 0},
+        { lat:35.45557609970713, lon: 133.28733813484686, x: 0, y: 665.33},
+        { lat:35.45558926304154, lon: 133.29101448263833, x: 1280, y: 0},
+        { lat:35.454090077911886, lon: 133.29005816765212, x: 1280, y: 665.33}
     ]
-    // 基準地点（1点目）
-    const baseLat = points[0].lat;
-    const baseLon = points[0].lon;
+    function latLonToPixel(lat, lon) {
+    const topLeft = points[0];
+    const bottomLeft = points[1];
+    const topRight = points[2];
 
-    // 緯度・経度を基準地点からの距離（m）に変換
-    function toLocal(lat, lon) {
-        const east =
-            (lon - baseLon) * 111320 *
-            Math.cos(baseLat * Math.PI / 180);
+    // 経度からX座標を求める
+    const x =
+        (lon - topLeft.lon) /
+        (topRight.lon - topLeft.lon) *
+        (topRight.x - topLeft.x);
 
-        const north =
-            (lat - baseLat) * 111320;
+    // 緯度からY座標を求める
+    // 緯度は北に行くほど大きくなる一方、
+    // 画像のY座標は下に行くほど大きくなるため逆になる
+    const y =
+        (topLeft.lat - lat) /
+        (topLeft.lat - bottomLeft.lat) *
+        (bottomLeft.y - topLeft.y);
 
-        return { east, north };
-    }
-
-    // 3元連立方程式を解く
-    function solve3(A, B) {
-        const m = A.map((row, i) => [...row, B[i]]);
-
-        for (let i = 0; i < 3; i++) {
-            let pivot = i;
-
-            for (let j = i + 1; j < 3; j++) {
-                if (Math.abs(m[j][i]) > Math.abs(m[pivot][i])) {
-                    pivot = j;
-                }
-            }
-
-            [m[i], m[pivot]] = [m[pivot], m[i]];
-
-            if (Math.abs(m[i][i]) < 1e-12) {
-                throw new Error("基準点が一直線上にあるか、近すぎます");
-            }
-
-            const divisor = m[i][i];
-            for (let k = i; k < 4; k++) {
-                m[i][k] /= divisor;
-            }
-
-            for (let j = 0; j < 3; j++) {
-                if (j === i) continue;
-                const factor = m[j][i];
-
-                for (let k = i; k < 4; k++) {
-                    m[j][k] -= factor * m[i][k];
-                }
-            }
-        }
-
-        return m.map(row => row[3]);
-    }
-
-    // 各地点の東西・南北距離を取得
-    const localPoints = points.map(p => ({
-        ...toLocal(p.lat, p.lon),
-        x: p.x,
-        y: p.y
-    }));
-
-    // 連立方程式の係数行列
-    const A = localPoints.map(p => [p.east, p.north, 1]);
-
-    // ピクセル座標への変換係数を計算
-    const [a, b, c] = solve3(A, localPoints.map(p => p.x));
-    const [d, e, f] = solve3(A, localPoints.map(p => p.y));
-
-    // 任意の緯度・経度を画像座標に変換
-    function getPixel(lat, lon) {
-        const { east, north } = toLocal(lat, lon);
-
-        return {
-            x: a * east + b * north + c,
-            y: d * east + e * north + f
-        };
-    }
-//    const lat = position.coords.latitude;
-//    const lon = position.coords.longitude;
-    const userLat = 35.45530032022659; // 仮の緯度
-    const userLon = 133.2895547000474; //  仮の経度
+    return { x, y };
+}
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
 
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
         .toLocaleTimeString("ja-JP");
 
-    currentLatitude = userLat;
-    currentLongitude = userLon;
+    currentLatitude = lat;
+    currentLongitude = lon;
 
-    const userMarker = getPixel(userLat, userLon);
+    const userMarker = latLonToPixel(lat, lon);
 
     document.getElementById("location-lat").textContent =
         `緯度：${userLat.toFixed(6)}`;
@@ -397,10 +341,8 @@ function updateLocationDisplay(position) {
         "状態：取得中・更新済み";
 
     // ここで地図上への座標変換・マーカー移動を行う。
-    document.getElementById("current-location-marker").style.left =
-        `${-1 * (userMarker.x + 3000)}px`;
-    document.getElementById("current-location-marker").style.top =
-        `${-1 * (userMarker.y + 2600)}px`;
+    currentMarker.style.left = `${userMarker.x}px`;
+    currentMarker.style.top = `${userMarker.y}px`;
     document.getElementById("current-location-marker").hidden = false;
     // 自作地図の基準座標が未設定のため、
     // 現時点では座標表示のみ。
