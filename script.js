@@ -6,7 +6,7 @@ const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
 
-console.log("version 1.0.0");
+console.log("version 1.0.1");
 
 // ズーム設定
 let zoom = 1;
@@ -366,12 +366,14 @@ function updateLocationDisplay(position) {
 
     // ここで地図上への座標変換・マーカー移動を行う。
     
-    const scaleX = mapImage.clientWidth / 1280;
-    const scaleY = mapImage.clientHeight / 665;
+    const displayedWidth = mapImage.clientWidth;
+    const displayedHeight = mapImage.clientHeight;
+
+    const scaleX = displayedWidth / 1280;
+    const scaleY = displayedHeight / 665;
 
     currentMarker.style.left =
         `${userMarker.x * scaleX}px`;
-
     currentMarker.style.top =
         `${userMarker.y * scaleY}px`;
 
