@@ -4,7 +4,7 @@ const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
 
-console.log("version 1.0.2");
+console.log("version 1.0.3");
 
 // ズーム設定
 let zoom = 1;
@@ -319,8 +319,11 @@ function updateLocationDisplay(position) {
             y: v * 665
         };
     }
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
+//    const lat = position.coords.latitude;
+//    const lon = position.coords.longitude;
+
+    const lat = 35.455990; //デバッグ用座標
+    const lon = 133.289659; //デバック用座標
 
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
