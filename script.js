@@ -4,8 +4,7 @@ const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
 
-console.log("version 1.0.3");
-console.log("version 1.0.3.1");
+console.log("version 1.0.3.2");
 
 // ズーム設定
 let zoom = 1;
@@ -320,11 +319,8 @@ function updateLocationDisplay(position) {
             y: v * 665
         };
     }
-//    const lat = position.coords.latitude;
-//    const lon = position.coords.longitude;
-
-    const lat = 35.455990; //デバッグ用座標
-    const lon = 133.289659; //デバック用座標
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
 
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
@@ -481,6 +477,18 @@ function initializeMap() {
     );
 
     // 位置情報は自動開始せず、ボタンから開始する
+}
+
+//Debug用の関数
+function debugLocation(lat, lon) {
+    updateLocationDisplay({
+        coords: {
+            latitude: lat,
+            longitude: lon,
+            accuracy: 1
+        },
+        timestamp: Date.now()
+    });
 }
 
 // HTMLの読み込み完了後に実行
