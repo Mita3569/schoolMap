@@ -4,7 +4,7 @@ const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
 
-console.log("version 1.0.3.3");
+console.log("version 1.0.3.2");
 
 // ズーム設定
 let zoom = 1;
@@ -275,10 +275,10 @@ function updateLocationDisplay(position) {
     const currentMarker = document.getElementById("current-location-marker");
 
     const points = {
-        NW: { lat: 35.456823990467036, lon: 133.2885842389562, x: 0,    y: 0   },// 左上
-        SW: { lat: 35.455940328689216, lon:133.2878073096571, x: 0,    y: 665 },// 左下
-        NE: { lat: 35.45566618741125, lon: 133.29064650292793, x: 1280, y: 0   },// 右上
-        SE: { lat: 35.45460752670215, lon: 133.28977648532074, x: 1280, y: 665 } // 右下
+        NW: { lat: 35.45694144383597, lon: 133.28846130224647, x: 0,    y: 0   },// 左上
+        SW: { lat: 35.45574263612581, lon: 133.28750102563885, x: 0,    y: 665 },// 左下
+        NE: { lat: 35.45574300000000, lon: 133.29067900000000, x: 1280, y: 0   },// 右上
+        SE: { lat: 35.45433002179459, lon: 133.28943633681803, x: 1280, y: 665 } // 右下
     };
     function latLonToPixel(lat, lon) {
 
