@@ -3,7 +3,14 @@
 const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
-const floor = 1;
+let floor = 1;
+
+const points = {
+    NW: { lat: 35.45690104328238, lon: 133.28859017322057, x: 0,    y: 0   },// 左上
+    SW: { lat: 35.4558712821444,  lon: 133.28773362759344, x: 0,    y: 665.33 },// 左下
+    NE: { lat: 35.455693363965146,lon: 133.2905665210463, x: 1280, y: 0   },// 右上
+    SE: { lat: 35.454666020698376,lon: 133.28958991641062, x: 1280, y: 665.33 } // 右下
+};
 
 console.log("version 1.0.4.3");
 
@@ -85,7 +92,7 @@ function downFloor() {
     if (floor > 1) {
         floor--;
         mapImage.src = `./images/map/floor${floor}.JPG`;
-        resetZoom();
+        mapImage.onload = () => resetZoom();
     }
 }
 
@@ -274,18 +281,6 @@ function hideInfo() {
     document.getElementById("info").hidden = true;
 }
 
-function updateLocationFromInput() {
-    const input = document.getElementById("location-input").value;
-    const [latStr, lonStr] = input.split(",");
-    const lat = parseFloat(latStr);
-    const lon = parseFloat(lonStr);
-
-    if (isNaN(lat) || isNaN(lon)) {
-        alert("有効な緯度と経度を入力してください。");
-        return;
-    }
-}
-
 //. 6. 現在地の座標表示
 
 
@@ -293,12 +288,6 @@ function updateLocationFromInput() {
 function updateLocationDisplay(position) {
     const currentMarker = document.getElementById("current-location-marker");
 
-    const points = {
-        NW: { lat: 35.45690104328238, lon: 133.28859017322057, x: 0,    y: 0   },// 左上
-        SW: { lat: 35.4558712821444,  lon: 133.28773362759344, x: 0,    y: 665 },// 左下
-        NE: { lat: 35.455693363965146,lon: 133.2905665210463, x: 1280, y: 0   },// 右上
-        SE: { lat: 35.454666020698376,lon: 133.28958991641062, x: 1280, y: 665 } // 右下
-    };
     function latLonToPixel(lat, lon) {
 
         const NW = points.NW;
