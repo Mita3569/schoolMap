@@ -153,7 +153,7 @@ button {
     gap: 8px;
 }
 
-#zoom-controls button {
+#map-controls button {
     min-width: 48px;
     min-height: 45px;
     padding: 8px 12px;
@@ -263,7 +263,7 @@ button {
         font-size: 13px;
     }
 
-    #zoom-controls {
+    #map-controls {
         right: 8px;
         bottom: 12px;
     }
