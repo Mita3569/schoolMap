@@ -142,7 +142,7 @@ button {
    5. ズーム操作ボタン
 ======================================== */
 
-#zoom-controls {
+#map-controls {
     position: fixed;
     z-index: 20;
     right: 12px;

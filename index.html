@@ -17,27 +17,12 @@
       <!-- 地図画像 -->
       <img
         id="map-image"
-        src="./images/map.JPG"
+        src="./images/map/_1.JPG"
         alt="構内マップ"
         draggable="false"
       >
 
-      <!-- 地図上のマーカー：位置は必要に応じて変更 -->
-<!--      <button
-        class="marker"
-        style="left: 50%; top: 50%;"
-        onclick="showInfo('中央地点')"
-        aria-label="中央地点の説明"
-      >中央</button>-->
-
-<!--     <button
-        class="marker"
-        style="left: 65%; top: 40%;"
-        onclick="showInfo('入口')"
-        aria-label="入口の説明"
-      >入口</button>-->
-
-      <!-- 現在地マーカー（座標変換実装後に表示） -->
+      <!-- 現在地マーカー -->
       <div id="current-location-marker"
            aria-label="現在地"
            hidden></div>
@@ -57,7 +42,14 @@
   </section>
 
   <!-- 地図の操作ボタン -->
-  <nav id="zoom-controls" aria-label="地図操作">
+  <nav id="map-controls" aria-label="地図操作"></nav>
+    <button type="button"
+            onclick="upFloor()"
+            aria-label="上の階">≫</button>
+
+    <button type="button"
+            onclick="downFloor()"
+            aria-label="下の階">≪</button>
     <button type="button"
             onclick="zoomIn()"
             aria-label="拡大">＋</button>

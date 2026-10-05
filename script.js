@@ -3,8 +3,9 @@
 const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
+const floor = 1;
 
-console.log("version 1.0.4.2");
+console.log("version 1.0.4.3");
 
 // ズーム設定
 let zoom = 1;
@@ -69,6 +70,25 @@ function setZoom(newZoom, centerX, centerY) {
     clampPosition();
     updateTransform();
 }
+
+// 階層を上げる
+function upFloor() {
+    if (floor < 3) {
+        floor++;
+        mapImage.src = `./images/map/_${floor}.JPG`;
+        resetZoom();
+    }
+}
+
+// 階層を下げる
+function downFloor() {
+    if (floor > 1) {
+        floor--;
+        mapImage.src = `./images/map/_${floor}.JPG`;
+        resetZoom();
+    }
+}
+
 
 // 拡大ボタン
 function zoomIn() {
@@ -345,11 +365,6 @@ function updateLocationDisplay(position) {
 
     document.getElementById("location-status").textContent =
         "状態：取得中・更新済み";
-
-
-    // ここで地図上への座標変換・マーカー移動を行う。const scaleX = mapImage.clientWidth / 1280;
-
-    // ここで地図上への座標変換・マーカー移動を行う。
     
     const displayedWidth = mapImage.clientWidth;
     const displayedHeight = mapImage.clientHeight;
@@ -363,8 +378,6 @@ function updateLocationDisplay(position) {
         `${userMarker.y * scaleY}px`;
 
     document.getElementById("current-location-marker").hidden = false;
-    // 自作地図の基準座標が未設定のため、
-    // 現時点では座標表示のみ。
 }
 
 
