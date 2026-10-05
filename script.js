@@ -75,7 +75,7 @@ function setZoom(newZoom, centerX, centerY) {
 function upFloor() {
     if (floor < 3) {
         floor++;
-        mapImage.src = `./images/map/_${floor}.JPG`;
+        mapImage.src = `./images/map/floor${floor}.JPG`;
         resetZoom();
     }
 }
@@ -84,11 +84,10 @@ function upFloor() {
 function downFloor() {
     if (floor > 1) {
         floor--;
-        mapImage.src = `./images/map/_${floor}.JPG`;
+        mapImage.src = `./images/map/floor${floor}.JPG`;
         resetZoom();
     }
 }
-
 
 // 拡大ボタン
 function zoomIn() {
