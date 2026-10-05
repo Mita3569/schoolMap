@@ -12,7 +12,7 @@ const points = {
     SE: { lat: 35.454666020698376,lon: 133.28958991641062, x: 1280, y: 665.33 } // 右下
 };
 
-console.log("version 1.0.4.3");
+console.log("version 1.0.5");
 
 // ズーム設定
 let zoom = 1;
