@@ -4,7 +4,7 @@ const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
 
-console.log("version 1.0.4.1");
+console.log("version 1.0.4.2");
 
 // ズーム設定
 let zoom = 1;
