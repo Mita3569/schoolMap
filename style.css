@@ -172,7 +172,7 @@ button {
     position: fixed;
     z-index: 20;
     right: 12px;
-    bottom: 90px;
+    top: 15px;
 
     padding: 8px 12px;
 
@@ -274,7 +274,7 @@ button {
     }
     #floor {
         right: 8px;
-        bottom: 80px;
+        top: 15px;
         padding: 6px 10px;
         font-size: 14px;
     }
