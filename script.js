@@ -3,6 +3,7 @@
 const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
+const floorDisplay = document.getElementById("floor");
 let floor = 1;
 
 const points = {
@@ -83,6 +84,8 @@ function upFloor() {
     if (floor < 3) {
         floor++;
         mapImage.src = `./images/map/floor${floor}.JPG`;
+        floorDisplay.textContent = `${floor}階`;
+        mapImage.onload = () =>
         resetZoom();
     }
 }
@@ -92,6 +95,7 @@ function downFloor() {
     if (floor > 1) {
         floor--;
         mapImage.src = `./images/map/floor${floor}.JPG`;
+        floorDisplay.textContent = `${floor}階`;
         mapImage.onload = () => resetZoom();
     }
 }
@@ -338,12 +342,6 @@ function updateLocationDisplay(position) {
     currentLongitude = lon;
 
     const userMarker = latLonToPixel(lat, lon);
-
-    document.getElementById("location-lat").textContent =
-        `緯度：${lat.toFixed(6)}`;
-
-    document.getElementById("location-lon").textContent =
-        `経度：${lon.toFixed(6)}`;
 
     document.getElementById("location-accuracy").textContent =
         `精度：約${Math.round(accuracy)} m`;

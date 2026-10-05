@@ -168,6 +168,21 @@ button {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
+#floor {
+    position: fixed;
+    z-index: 20;
+    right: 12px;
+    bottom: 90px;
+
+    padding: 8px 12px;
+
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #222;
+
+    font-size: 16px;
+    font-weight: bold;
+}
 
 /* ========================================
    6. 位置情報の開始・停止ボタン
@@ -256,6 +271,12 @@ button {
     #map-controls {
         right: 8px;
         bottom: 12px;
+    }
+    #floor {
+        right: 8px;
+        bottom: 80px;
+        padding: 6px 10px;
+        font-size: 14px;
     }
 
     #location-controls {

@@ -34,8 +34,6 @@
   <section id="location-display"
            aria-live="polite">
     <strong>現在の位置情報</strong>
-    <p id="location-lat">緯度：取得待ち</p>
-    <p id="location-lon">経度：取得待ち</p>
     <p id="location-accuracy">精度：取得待ち</p>
     <p id="location-time">更新時刻：未取得</p>
     <p id="location-status">状態：待機中</p>
@@ -60,6 +58,7 @@
     <button type="button"
             onclick="resetZoom()">初期位置</button>
   </nav>
+  <span id="floor">1階</span>
 
   <!-- マーカーの説明 -->
   <section id="info" hidden aria-live="polite">
