@@ -85,8 +85,6 @@ function upFloor() {
         floor++;
         mapImage.src = `./images/map/floor${floor}.JPG`;
         floorDisplay.textContent = `${floor}階`;
-        mapImage.onload = () =>
-        resetZoom();
     }
 }
 
@@ -96,7 +94,6 @@ function downFloor() {
         floor--;
         mapImage.src = `./images/map/floor${floor}.JPG`;
         floorDisplay.textContent = `${floor}階`;
-        mapImage.onload = () => resetZoom();
     }
 }
 
