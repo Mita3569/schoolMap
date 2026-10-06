@@ -7,10 +7,10 @@ const floorDisplay = document.getElementById("floor");
 let floor = 1;
 
 const points = {
-    NW: { lat: 35.45690104328238, lon: 133.28859017322057, x: 0,    y: 0   },// 左上
-    SW: { lat: 35.4558712821444,  lon: 133.28773362759344, x: 0,    y: 665.33 },// 左下
-    NE: { lat: 35.455693363965146,lon: 133.2905665210463, x: 1280, y: 0   },// 右上
-    SE: { lat: 35.454666020698376,lon: 133.28958991641062, x: 1280, y: 665.33 } // 右下
+    NW: { lat: 35.45714995626942, lon: 133.28878056892862, x: 0,    y: 0   },// 左上
+    SW: { lat: 35.45558801232546, lon: 133.28724653952722, x: 0,    y: 665.33 },// 左下
+    NE: { lat: 35.455927333739915,lon: 133.29067165692646, x: 1280, y: 0   },// 右上
+    SE: { lat: 35.454343821466495,lon: 133.28929632022172, x: 1280, y: 665.33 } // 右下
 };
 
 console.log("version 1.0.5");
@@ -349,16 +349,20 @@ function updateLocationDisplay(position) {
     document.getElementById("location-status").textContent =
         "状態：取得中・更新済み";
     
-    const displayedWidth = mapImage.clientWidth;
-    const displayedHeight = mapImage.clientHeight;
+    const imageRect = mapImage.getBoundingClientRect();
+    const contentRect = mapContent.getBoundingClientRect();
 
-    const scaleX = displayedWidth / 1280;
-    const scaleY = displayedHeight / 665;
+    const offsetX = imageRect.left - contentRect.left;
+    const offsetY = imageRect.top - contentRect.top;
 
     currentMarker.style.left =
-        `${userMarker.x * scaleX}px`;
+        `${offsetX + userMarker.x * scaleX}px`;
+
     currentMarker.style.top =
-        `${userMarker.y * scaleY}px`;
+        `${offsetY + userMarker.y * scaleY}px`;
+    
+    const displayedWidth = mapImage.clientWidth;
+    const displayedHeight = mapImage.clientHeight;
 
     document.getElementById("current-location-marker").hidden = false;
 }
