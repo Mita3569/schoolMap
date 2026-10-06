@@ -348,7 +348,11 @@ function updateLocationDisplay(position) {
 
     document.getElementById("location-status").textContent =
         "状態：取得中・更新済み";
+    const rect = mapImage.getBoundingClientRect();
     
+    const scaleX = rect.width / 1280;
+    const scaleY = rect.height / 665;
+
     const imageRect = mapImage.getBoundingClientRect();
     const contentRect = mapContent.getBoundingClientRect();
 
@@ -360,9 +364,6 @@ function updateLocationDisplay(position) {
 
     currentMarker.style.top =
         `${offsetY + userMarker.y * scaleY}px`;
-    
-    const displayedWidth = mapImage.clientWidth;
-    const displayedHeight = mapImage.clientHeight;
 
     document.getElementById("current-location-marker").hidden = false;
 }
