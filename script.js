@@ -13,7 +13,7 @@ const points = {
     SE: { lat: 35.45475712311221, lon: 133.2897141380836, x: 1280, y: 665.33 } // 右下
 };
 
-console.log("version 1.0.5.2");
+console.log("version 1.0.5.3");
 
 // ズーム設定
 let zoom = 1;
@@ -325,7 +325,7 @@ function updateLocationDisplay(position) {
 
         return {
             x: u * 1280,
-            y: v * 665
+            y: v * 665.33
         };
     }
     const lat = position.coords.latitude;
@@ -359,12 +359,14 @@ function updateLocationDisplay(position) {
     const offsetX = imageRect.left - contentRect.left;
     const offsetY = imageRect.top - contentRect.top;
 
-    currentMarker.style.left =
-        `${offsetX + userMarker.x * scaleX}px`;
+    const markerX =
+        (offsetX + userMarker.x * scaleX) * zoom + x;
 
-    currentMarker.style.top =
-        `${offsetY + userMarker.y * scaleY}px`;
+    const markerY =
+        (offsetY + userMarker.y * scaleY) * zoom + y;
 
+    currentMarker.style.left = `${markerX}px`;
+    currentMarker.style.top = `${markerY}px`;
     document.getElementById("current-location-marker").hidden = false;
 }
 
