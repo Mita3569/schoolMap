@@ -13,21 +13,23 @@
   <!-- 地図表示エリア -->
   <main id="map-container">
     <div id="map-content">
+      <div id="map-image-wrapper">
+        <!-- 地図画像 -->
+        <img
+          id="map-image"
+          src="./images/map/floor1.JPG"
+          alt="構内マップ"
+          draggable="false"
+        >
 
-      <!-- 地図画像 -->
-      <img
-        id="map-image"
-        src="./images/map/floor1.JPG"
-        alt="構内マップ"
-        draggable="false"
-      >
-
-      <!-- 現在地マーカー -->
-      <div id="current-location-marker"
-           aria-label="現在地"
-           hidden></div>
-
+        <!-- 現在地マーカー -->
+        <div id="current-location-marker"
+            aria-label="現在地"
+            hidden>
+        </div>
+      </div>
     </div>
+  
   </main>
 
   <!-- 現在地の座標表示 -->

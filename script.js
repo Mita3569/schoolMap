@@ -4,7 +4,10 @@ const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
 const floorDisplay = document.getElementById("floor");
+const MAP_WIDTH = 1280;
+const MAP_HEIGHT = 665.33;
 let floor = 1;
+
 
 const points = {
     NW: { lat: 35.45686187811475, lon: 133.28876383870673, x: 0,    y: 0   },// 左上
@@ -13,7 +16,7 @@ const points = {
     SE: { lat: 35.45475712311221, lon: 133.2897141380836, x: 1280, y: 665.33 } // 右下
 };
 
-console.log("version 1.0.5.3");
+console.log("version 1.0.5.4");
 
 // ズーム設定
 let zoom = 1;
@@ -324,8 +327,8 @@ function updateLocationDisplay(position) {
             pxLon * vxLat ) / det;
 
         return {
-            x: u * 1280,
-            y: v * 665.33
+            x: u * Map_WIDTH,
+            y: v * Map_HEIGHT
         };
     }
     const lat = position.coords.latitude;
@@ -349,25 +352,17 @@ function updateLocationDisplay(position) {
     document.getElementById("location-status").textContent =
         "状態：取得中・更新済み";
     const rect = mapImage.getBoundingClientRect();
-    
-    const scaleX = rect.width / 1280;
-    const scaleY = rect.height / 665;
 
-    const imageRect = mapImage.getBoundingClientRect();
-    const contentRect = mapContent.getBoundingClientRect();
+    const scaleX = rect.width / MAP_WIDTH;
+    const scaleY = rect.height / MAP_HEIGHT;
 
-    const offsetX = imageRect.left - contentRect.left;
-    const offsetY = imageRect.top - contentRect.top;
+    currentMarker.style.left =
+        `${userMarker.x * scaleX}px`;
 
-    const markerX =
-        (offsetX + userMarker.x * scaleX) * zoom + x;
+    currentMarker.style.top =
+        `${userMarker.y * scaleY}px`;
 
-    const markerY =
-        (offsetY + userMarker.y * scaleY) * zoom + y;
-
-    currentMarker.style.left = `${markerX}px`;
-    currentMarker.style.top = `${markerY}px`;
-    document.getElementById("current-location-marker").hidden = false;
+    currentMarker.hidden = false;
 }
 
 
