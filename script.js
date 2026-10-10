@@ -327,8 +327,8 @@ function updateLocationDisplay(position) {
             pxLon * vxLat ) / det;
 
         return {
-            x: u * Map_WIDTH,
-            y: v * Map_HEIGHT
+            x: u * MAP_WIDTH,
+            y: v * MAP_HEIGHT
         };
     }
     const lat = position.coords.latitude;
