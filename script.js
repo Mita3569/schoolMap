@@ -5,7 +5,7 @@ const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
 const floorDisplay = document.getElementById("floor");
 const MAP_WIDTH = 1280;
-const MAP_HEIGHT = 720;
+const MAP_HEIGHT = 609;
 let floor = 1;
 
 
@@ -334,7 +334,7 @@ function updateLocationDisplay(position) {
 //    const lat = position.coords.latitude;
 //    const lon = position.coords.longitude;
     const lat = 35.45591288556128; //debug用の固定座標
-    const lon = 133.28813518007206; //debug用の固定座標
+    const lon = 133.28813518006096; //debug用の固定座標
 
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
