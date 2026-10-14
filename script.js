@@ -15,8 +15,8 @@ const points = {
     NE: { lat: 35.45571625099718, lon: 133.2904713840399, x: 1280, y: 0   },// 右上
     SE: { lat: 35.45486634719262, lon: 133.2897552342663, x: 1280, y: 665.33 } // 右下
 };
-
-console.log("version 1.0.5.4");
+//更新確認用のVersion表示
+console.log("version 1.0.5.5");
 
 // ズーム設定
 let zoom = 1;
