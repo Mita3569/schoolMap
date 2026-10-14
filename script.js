@@ -5,15 +5,15 @@ const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
 const floorDisplay = document.getElementById("floor");
 const MAP_WIDTH = 1280;
-const MAP_HEIGHT = 665.33;
+const MAP_HEIGHT = 720;
 let floor = 1;
 
 
 const points = {
     NW: { lat: 35.45678681114169, lon: 133.2888110966752, x: 0,    y: 0   },// 左上
-    SW: { lat: 35.455851710414436,lon: 133.28790987448133,x: 0,    y: 665.33 },// 左下
+    SW: { lat: 35.455851710414436,lon: 133.28790987448133,x: 0,    y: 720 },// 左下
     NE: { lat: 35.45571625099718, lon: 133.2904713840399, x: 1280, y: 0   },// 右上
-    SE: { lat: 35.45486634719262, lon: 133.2897552342663, x: 1280, y: 665.33 } // 右下
+    SE: { lat: 35.45486634719262, lon: 133.2897552342663, x: 1280, y: 720 } // 右下
 };
 //更新確認用のVersion表示
 console.log("version 1.0.5.5");
