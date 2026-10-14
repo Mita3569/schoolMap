@@ -331,8 +331,10 @@ function updateLocationDisplay(position) {
             y: v * MAP_HEIGHT
         };
     }
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
+//    const lat = position.coords.latitude;
+//    const lon = position.coords.longitude;
+    const lat = 35.45591288556128; //debug用の固定座標
+    const lon = 133.28813518007206; //debug用の固定座標
 
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
