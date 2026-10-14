@@ -353,10 +353,11 @@ function updateLocationDisplay(position) {
 
     document.getElementById("location-status").textContent =
         "状態：取得中・更新済み";
-    const rect = mapImage.getBoundingClientRect();
+    const scaleX =
+        mapImage.clientWidth / MAP_WIDTH;
 
-    const scaleX = rect.width / MAP_WIDTH;
-    const scaleY = rect.height / MAP_HEIGHT;
+    const scaleY =
+        mapImage.clientHeight / MAP_HEIGHT;
 
     currentMarker.style.left =
         `${userMarker.x * scaleX}px`;
