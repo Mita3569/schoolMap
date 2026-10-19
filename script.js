@@ -16,7 +16,7 @@ const points = {
     SE: { lat: 35.45490236832315, lon: 133.2897713317695, x: 1280, y: 720 } // 右下
 };
 //更新確認用のVersion表示
-console.log("version 1.0.5.8");
+console.log("version 1.0.5.9");
 
 // ズーム設定
 let zoom = 1;
@@ -292,49 +292,39 @@ function hideInfo() {
 function updateLocationDisplay(position) {
     const currentMarker = document.getElementById("current-location-marker");
 
-    function latLonToPixel(lat, lon) {
+    function latLonToPixel4(lat, lon) {
+        let u = 0.5;
+        let v = 0.5;
 
-        const NW = points.NW;
-        const SW = points.SW;
-        const NE = points.NE;
+        for (let i = 0; i < 10; i++) {
 
-        // 緯度経度空間での基準ベクトル
-        const vxLon = NE.lon - NW.lon;
-        const vxLat = NE.lat - NW.lat;
+            const latEst =
+                (1-u)*(1-v)*points.NW.lat +
+                u*(1-v)*points.NE.lat +
+                (1-u)*v*points.SW.lat +
+                u*v*points.SE.lat;
 
-        const vyLon = SW.lon - NW.lon;
-        const vyLat = SW.lat - NW.lat;
+            const lonEst =
+                (1-u)*(1-v)*points.NW.lon +
+                u*(1-v)*points.NE.lon +
+                (1-u)*v*points.SW.lon +
+                u*v*points.SE.lon;
 
-        // 現在地点ベクトル
-        const pxLon = lon - NW.lon;
-        const pxLat = lat - NW.lat;
+            const latError = lat - latEst;
+            const lonError = lon - lonEst;
 
-        // 2×2行列の逆行列
-        const det =
-            vxLon * vyLat -
-            vyLon * vxLat;
-
-        if (Math.abs(det) < 1e-12) {
-            return { x: 0, y: 0 };
+            u += lonError * 500;
+            v += latError * -500;
         }
-
-        const u =
-            ( pxLon * vyLat -
-            vyLon * pxLat ) / det;
-
-        const v =
-            ( vxLon * pxLat -
-            pxLon * vxLat ) / det;
 
         return {
             x: u * MAP_WIDTH,
             y: v * MAP_HEIGHT
         };
     }
-//    const lat = position.coords.latitude;
-//    const lon = position.coords.longitude;
-    const lat = 35.45591288556128; //debug用の固定座標
-    const lon = 133.28813518006096; //debug用の固定座標
+
+    const lat = position.coords.latitude; //現在地の緯度の取得
+    const lon = position.coords.longitude; //現在地の経度の取得
 
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
@@ -343,7 +333,7 @@ function updateLocationDisplay(position) {
     currentLatitude = lat;
     currentLongitude = lon;
 
-    const userMarker = latLonToPixel(lat, lon);
+    const userMarker = latLonToPixel4(lat, lon);
 
     document.getElementById("location-accuracy").textContent =
         `精度：約${Math.round(accuracy)} m`;
