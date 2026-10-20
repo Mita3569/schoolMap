@@ -289,37 +289,38 @@ function hideInfo() {
 
 
 // 取得した位置情報を画面に表示
-function latLonToPixel(lat, lon) {
-    const NW = points.NW;
-    const SW = points.SW;
-    const NE = points.NE;
+function updateLocationDisplay(position) {
+    function latLonToPixel(lat, lon) {
+        const NW = points.NW;
+        const SW = points.SW;
+        const NE = points.NE;
 
-    const vxLon = NE.lon - NW.lon;
-    const vxLat = NE.lat - NW.lat;
+        const vxLon = NE.lon - NW.lon;
+        const vxLat = NE.lat - NW.lat;
 
-    const vyLon = SW.lon - NW.lon;
-    const vyLat = SW.lat - NW.lat;
+        const vyLon = SW.lon - NW.lon;
+        const vyLat = SW.lat - NW.lat;
 
-    const pxLon = lon - NW.lon;
-    const pxLat = lat - NW.lat;
+        const pxLon = lon - NW.lon;
+        const pxLat = lat - NW.lat;
 
-    const det =
-        vxLon * vyLat -
-        vyLon * vxLat;
+        const det =
+            vxLon * vyLat -
+            vyLon * vxLat;
 
-    const u =
-        (pxLon * vyLat -
-        vyLon * pxLat) / det;
+        const u =
+            (pxLon * vyLat -
+            vyLon * pxLat) / det;
 
-    const v =
-        (vxLon * pxLat -
-        pxLon * vxLat) / det;
+        const v =
+            (vxLon * pxLat -
+            pxLon * vxLat) / det;
 
-    return {
-        x: u * MAP_WIDTH,
-        y: v * MAP_HEIGHT
-    };
-}
+        return {
+            x: u * MAP_WIDTH,
+            y: v * MAP_HEIGHT
+        };
+    }
 
 //    const lat = position.coords.latitude; //現在地の緯度の取得
 //    const lon = position.coords.longitude; //現在地の経度の取得
