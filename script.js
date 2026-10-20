@@ -342,10 +342,10 @@ function updateLocationDisplay(position) {
         `精度：約${Math.round(accuracy)} m`;
 
     document.getElementById("location-time").textContent =
-        `更新時刻：${Date.time}`;
+        `更新時刻：${time}`;
 
     document.getElementById("location-status").textContent =
-        "状態：取得中・更新済み";
+        `状態：取得中 (${Date.now()})`;
     const scaleX =
         mapImage.clientWidth / MAP_WIDTH;
 
