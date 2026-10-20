@@ -16,7 +16,7 @@ const points = {
     SE: { lat: 35.455699980279974,lon: 133.29048014375377, x: 1400, y: 720 } // 右下
 };
 //更新確認用のVersion表示
-console.log("version 1.0.6.1");
+console.log("version 1.0.6.2");
 
 // ズーム設定
 let zoom = 1;
@@ -342,7 +342,7 @@ function updateLocationDisplay(position) {
         `精度：約${Math.round(accuracy)} m`;
 
     document.getElementById("location-time").textContent =
-        `更新時刻：${time}`;
+        `更新時刻：${Date.time}`;
 
     document.getElementById("location-status").textContent =
         "状態：取得中・更新済み";
@@ -366,6 +366,11 @@ function updateLocationDisplay(position) {
 
 // 位置情報を取得できたとき
 function onLocationSuccess(position) {
+    console.log(
+        "位置更新",
+        new Date(position.timestamp).toLocaleTimeString("ja-JP")
+    );
+
     updateLocationDisplay(position);
 }
 
