@@ -334,7 +334,7 @@ function latLonToPixel(lat, lon) {
     currentLatitude = lat;
     currentLongitude = lon;
 
-    const userMarker = latLonToPixel4(lat, lon);
+    const userMarker = latLonToPixel(lat, lon);
 
     document.getElementById("location-accuracy").textContent =
         `精度：約${Math.round(accuracy)} m`;
