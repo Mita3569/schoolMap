@@ -16,7 +16,7 @@ const points = {
     SE: { lat: 35.455699980279974,lon: 133.29048014375377, x: 1400, y: 720 } // 右下
 };
 //更新確認用のVersion表示
-console.log("version 1.0.6.2");
+console.log("version 1.0.6.3");
 
 // ズーム設定
 let zoom = 1;
@@ -289,39 +289,37 @@ function hideInfo() {
 
 
 // 取得した位置情報を画面に表示
-function updateLocationDisplay(position) {
-    const currentMarker = document.getElementById("current-location-marker");
+function latLonToPixel(lat, lon) {
+    const NW = points.NW;
+    const SW = points.SW;
+    const NE = points.NE;
 
-    function latLonToPixel4(lat, lon) {
-        let u = 0.5;
-        let v = 0.5;
+    const vxLon = NE.lon - NW.lon;
+    const vxLat = NE.lat - NW.lat;
 
-        for (let i = 0; i < 10; i++) {
+    const vyLon = SW.lon - NW.lon;
+    const vyLat = SW.lat - NW.lat;
 
-            const latEst =
-                (1-u)*(1-v)*points.NW.lat +
-                u*(1-v)*points.NE.lat +
-                (1-u)*v*points.SW.lat +
-                u*v*points.SE.lat;
+    const pxLon = lon - NW.lon;
+    const pxLat = lat - NW.lat;
 
-            const lonEst =
-                (1-u)*(1-v)*points.NW.lon +
-                u*(1-v)*points.NE.lon +
-                (1-u)*v*points.SW.lon +
-                u*v*points.SE.lon;
+    const det =
+        vxLon * vyLat -
+        vyLon * vxLat;
 
-            const latError = lat - latEst;
-            const lonError = lon - lonEst;
+    const u =
+        (pxLon * vyLat -
+        vyLon * pxLat) / det;
 
-            u += lonError * 500;
-            v += latError * -500;
-        }
+    const v =
+        (vxLon * pxLat -
+        pxLon * vxLat) / det;
 
-        return {
-            x: u * MAP_WIDTH,
-            y: v * MAP_HEIGHT
-        };
-    }
+    return {
+        x: u * MAP_WIDTH,
+        y: v * MAP_HEIGHT
+    };
+}
 
 //    const lat = position.coords.latitude; //現在地の緯度の取得
 //    const lon = position.coords.longitude; //現在地の経度の取得
