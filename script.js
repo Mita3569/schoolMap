@@ -4,6 +4,7 @@ const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
 const floorDisplay = document.getElementById("floor");
+const currentMarker = document.getElementById("current-location-marker");
 const MAP_WIDTH = 1400;
 const MAP_HEIGHT = 720;
 let floor = 1;
