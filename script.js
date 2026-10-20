@@ -4,7 +4,7 @@ const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
 const floorDisplay = document.getElementById("floor");
-const MAP_WIDTH = 1330;
+const MAP_WIDTH = 1400;
 const MAP_HEIGHT = 720;
 let floor = 1;
 
@@ -12,11 +12,11 @@ let floor = 1;
 const points = {
     NW: { lat: 35.4567725270992,  lon: 133.28876037880545, x: 0,    y: 0   },// 左上
     SW: { lat: 35.45594396885021, lon: 133.28795942296918, x: 0,    y: 720 },// 左下
-    NE: { lat: 35.45487325850927, lon: 133.289710786676,   x: 1330, y: 0   },// 右上
-    SE: { lat: 35.455699980279974,lon: 133.29048014375377, x: 1330, y: 720 } // 右下
+    NE: { lat: 35.45487325850927, lon: 133.289710786676,   x: 1400, y: 0   },// 右上
+    SE: { lat: 35.455699980279974,lon: 133.29048014375377, x: 1400, y: 720 } // 右下
 };
 //更新確認用のVersion表示
-console.log("version 1.0.6.0");
+console.log("version 1.0.6.1");
 
 // ズーム設定
 let zoom = 1;
@@ -323,8 +323,11 @@ function updateLocationDisplay(position) {
         };
     }
 
-    const lat = position.coords.latitude; //現在地の緯度の取得
-    const lon = position.coords.longitude; //現在地の経度の取得
+//    const lat = position.coords.latitude; //現在地の緯度の取得
+//    const lon = position.coords.longitude; //現在地の経度の取得
+
+    const lat = 35.45598068517058; //Debug用の緯度
+    const lon = 133.28962751460182; //Debug用の経度
 
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
