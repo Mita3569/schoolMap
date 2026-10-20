@@ -359,6 +359,12 @@ function updateLocationDisplay(position) {
         `${userMarker.y * scaleY}px`;
 
     currentMarker.hidden = false;
+    const test = latLonToPixel(lat, lon);
+    console.log(test);
+    console.log(
+    userMarker.x * scaleX,
+    userMarker.y * scaleY
+    );
 }
 
 
