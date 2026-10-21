@@ -332,7 +332,67 @@ function updateLocationDisplay(position) {
 
     currentLatitude = lat;
     currentLongitude = lon;
+    function getDisplayedImageRect() {
 
+        const containerWidth =
+            mapImage.clientWidth;
+
+        const containerHeight =
+            mapImage.clientHeight;
+
+        const imageWidth =
+            mapImage.naturalWidth;
+
+        const imageHeight =
+            mapImage.naturalHeight;
+
+        const imageRatio =
+            imageWidth / imageHeight;
+
+        const containerRatio =
+            containerWidth / containerHeight;
+
+        let displayedWidth;
+        let displayedHeight;
+        let offsetX;
+        let offsetY;
+
+        if (imageRatio > containerRatio) {
+
+            displayedWidth =
+                containerWidth;
+
+            displayedHeight =
+                containerWidth / imageRatio;
+
+            offsetX = 0;
+
+            offsetY =
+                (containerHeight -
+                displayedHeight) / 2;
+
+        } else {
+
+            displayedHeight =
+                containerHeight;
+
+            displayedWidth =
+                containerHeight * imageRatio;
+
+            offsetY = 0;
+
+            offsetX =
+                (containerWidth -
+                displayedWidth) / 2;
+        }
+
+        return {
+            width: displayedWidth,
+            height: displayedHeight,
+            offsetX,
+            offsetY
+        };
+    }
     const userMarker = latLonToPixel(lat, lon);
 
     document.getElementById("location-accuracy").textContent =
@@ -343,23 +403,12 @@ function updateLocationDisplay(position) {
 
     document.getElementById("location-status").textContent =
         `状態：取得中 (${Date.now()})`;
-    const wrapperRect =
-        mapImage.parentElement.getBoundingClientRect();
-
-    const imageRect =
-        mapImage.getBoundingClientRect();
-
-    const displayedWidth =
-        imageRect.width;
-
-    const displayedHeight =
-        imageRect.height;
-
-    const offsetX =
-        imageRect.left - wrapperRect.left;
-
-    const offsetY =
-        imageRect.top - wrapperRect.top;
+        const {
+        width: displayedWidth,
+        height: displayedHeight,
+        offsetX,
+        offsetY
+    } = getDisplayedImageRect();
 
     const scaleX =
         displayedWidth / MAP_WIDTH;
