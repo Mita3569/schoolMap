@@ -323,11 +323,8 @@ function updateLocationDisplay(position) {
         };
     }
 
-//    const lat = position.coords.latitude; //現在地の緯度の取得
-//    const lon = position.coords.longitude; //現在地の経度の取得
-
-    const lat = 35.45598068517058; //Debug用の緯度
-    const lon = 133.28962751460182; //Debug用の経度
+    const lat = position.coords.latitude; //現在地の緯度の取得
+    const lon = position.coords.longitude; //現在地の経度の取得
 
     const accuracy = position.coords.accuracy;
     const time = new Date(position.timestamp)
