@@ -85,7 +85,7 @@ function setZoom(newZoom, centerX, centerY) {
 
 // 階層を上げる
 function upFloor() {
-    if (floor < 3) {
+    if (floor < 4) {
         floor++;
         mapImage.src = `./images/map/floor${floor}.JPG`;
         floorDisplay.textContent = `${floor}階`;
