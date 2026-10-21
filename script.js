@@ -3,6 +3,8 @@
 const mapContainer = document.getElementById("map-container");
 const mapContent = document.getElementById("map-content");
 const mapImage = document.getElementById("map-image");
+const upFloorButton = document.getElementById("up-floor-button");
+const downFloorButton = document.getElementById("down-floor-button");
 const floorDisplay = document.getElementById("floor");
 const currentMarker = document.getElementById("current-location-marker");
 const MAP_WIDTH = 1400;
@@ -89,6 +91,8 @@ function upFloor() {
         floor++;
         mapImage.src = `./images/map/floor${floor}.JPG`;
         floorDisplay.textContent = `${floor}階`;
+    }else {
+        upFloorButton.disabled = true;
     }
 }
 
@@ -98,6 +102,8 @@ function downFloor() {
         floor--;
         mapImage.src = `./images/map/floor${floor}.JPG`;
         floorDisplay.textContent = `${floor}階`;
+    }else {
+        downFloorButton.disabled = true;
     }
 }
 
