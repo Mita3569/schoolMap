@@ -17,7 +17,7 @@ const points = {
     SE: { lat: 35.45487325850927, lon: 133.289710786676,   x: 1400, y: 720 } // 右下
 };
 //更新確認用のVersion表示
-console.log("version 1.0.6.5");
+console.log("version 1.0.6.5.2");
 
 // ズーム設定
 let zoom = 1;
@@ -343,17 +343,35 @@ function updateLocationDisplay(position) {
 
     document.getElementById("location-status").textContent =
         `状態：取得中 (${Date.now()})`;
+    const wrapperRect =
+        mapImage.parentElement.getBoundingClientRect();
+
+    const imageRect =
+        mapImage.getBoundingClientRect();
+
+    const displayedWidth =
+        imageRect.width;
+
+    const displayedHeight =
+        imageRect.height;
+
+    const offsetX =
+        imageRect.left - wrapperRect.left;
+
+    const offsetY =
+        imageRect.top - wrapperRect.top;
+
     const scaleX =
-        mapImage.clientWidth / MAP_WIDTH;
+        displayedWidth / MAP_WIDTH;
 
     const scaleY =
-        mapImage.clientHeight / MAP_HEIGHT;
+        displayedHeight / MAP_HEIGHT;
 
     currentMarker.style.left =
-        `${userMarker.x * scaleX}px`;
+        `${offsetX + userMarker.x * scaleX}px`;
 
     currentMarker.style.top =
-        `${userMarker.y * scaleY}px`;
+        `${offsetY + userMarker.y * scaleY}px`;
 
     currentMarker.hidden = false;
     const test = latLonToPixel(lat, lon);
