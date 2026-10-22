@@ -11,7 +11,7 @@ const MAP_WIDTH = 1400;
 const MAP_HEIGHT = 720;
 let floor = 1;
 
-downFloorButton.style.backgroundColor = "#ccc"; // 初期状態で下げるボタンをグレーアウト
+downFloorButton.style.backgroundColor = "#504f4f"; // 初期状態で下げるボタンをグレーアウト
 
 const points = {
     NW: { lat: 35.4567725270992,  lon: 133.28876037880545, x: 0,    y: 0   },// 左上
@@ -95,7 +95,7 @@ function upFloor() {
         upFloorButton.style.backgroundColor = ""; // ボタンのグレーアウトを解除
     }else {
         upFloorButton.disabled = true;
-        upFloorButton.style.backgroundColor = "#ccc"; // ボタンをグレーアウト
+        upFloorButton.style.backgroundColor = "#504f4f"; // ボタンをグレーアウト
     }
     downFloorButton.disabled = false;
 }
@@ -109,7 +109,7 @@ function downFloor() {
         downFloorButton.style.backgroundColor = ""; // ボタンのグレーアウトを解除
     }else {
         downFloorButton.disabled = true;
-        downFloorButton.style.backgroundColor = "#ccc"; // ボタンをグレーアウト
+        downFloorButton.style.backgroundColor = "#504f4f"; // ボタンをグレーアウト
     }
     upFloorButton.disabled = false;
 }
