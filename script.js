@@ -91,7 +91,7 @@ function upFloor() {
         floor++;
         mapImage.src = `./images/map/floor${floor}.JPG`;
         floorDisplay.textContent = `${floor}階`;
-        upFloorButton.style.backgroundColor = ""; // ボタンのグレーアウトを解除
+        downFloorButton.style.backgroundColor = ""; // ボタンのグレーアウトを解除
     }else {
         upFloorButton.disabled = true;
         upFloorButton.style.backgroundColor = "#504f4f"; // ボタンをグレーアウト
@@ -105,7 +105,7 @@ function downFloor() {
         floor--;
         mapImage.src = `./images/map/floor${floor}.JPG`;
         floorDisplay.textContent = `${floor}階`;
-        downFloorButton.style.backgroundColor = ""; // ボタンのグレーアウトを解除
+        upFloorButton.style.backgroundColor = ""; // ボタンのグレーアウトを解除
     }else {
         downFloorButton.disabled = true;
         downFloorButton.style.backgroundColor = "#504f4f"; // ボタンをグレーアウト
