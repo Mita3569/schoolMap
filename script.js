@@ -94,6 +94,7 @@ function upFloor() {
     }else {
         upFloorButton.disabled = true;
     }
+    downFloorButton.disabled = false;
 }
 
 // 階層を下げる
@@ -105,6 +106,7 @@ function downFloor() {
     }else {
         downFloorButton.disabled = true;
     }
+    upFloorButton.disabled = false;
 }
 
 // 拡大ボタン
