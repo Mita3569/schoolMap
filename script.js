@@ -19,7 +19,7 @@ const points = {
     SE: { lat: 35.45487325850927, lon: 133.289710786676,   x: 1400, y: 720 } // 右下
 };
 //更新確認用のVersion表示
-console.log("version 1.0.6.9");
+console.log("version 1.0.6.9.1");
 
 // ズーム設定
 let zoom = 1;
@@ -538,7 +538,7 @@ function stopLocationTracking() {
 function initializeMap() {
     // 地図の初期表示
     resetZoom();
-    
+
     // 階層表示の初期化
     downFloorButton.disabled = true;
 
