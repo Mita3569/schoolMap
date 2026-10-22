@@ -93,6 +93,7 @@ function upFloor() {
         floorDisplay.textContent = `${floor}階`;
     }else {
         upFloorButton.disabled = true;
+        upFloorButton.style.backgroundColor = "#ccc"; // ボタンをグレーアウト
     }
     downFloorButton.disabled = false;
 }
@@ -105,6 +106,7 @@ function downFloor() {
         floorDisplay.textContent = `${floor}階`;
     }else {
         downFloorButton.disabled = true;
+        downFloorButton.style.backgroundColor = "#ccc"; // ボタンをグレーアウト
     }
     upFloorButton.disabled = false;
 }
