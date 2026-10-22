@@ -19,7 +19,7 @@ const points = {
     SE: { lat: 35.45487325850927, lon: 133.289710786676,   x: 1400, y: 720 } // 右下
 };
 //更新確認用のVersion表示
-console.log("version 1.0.6.8");
+console.log("version 1.0.6.9");
 
 // ズーム設定
 let zoom = 1;
@@ -87,29 +87,39 @@ function setZoom(newZoom, centerX, centerY) {
 
 // 階層を上げる
 function upFloor() {
+
     if (floor < 4) {
         floor++;
+
         mapImage.src = `./images/map/floor${floor}.JPG`;
         floorDisplay.textContent = `${floor}階`;
-        downFloorButton.style.backgroundColor = ""; // ボタンのグレーアウトを解除
-    }else {
-        upFloorButton.disabled = true;
-        upFloorButton.style.backgroundColor = "#504f4f"; // ボタンをグレーアウト
     }
+
+    if (floor >= 4) {
+        upFloorButton.disabled = true;
+    } else {
+        upFloorButton.disabled = false;
+    }
+
     downFloorButton.disabled = false;
 }
 
 // 階層を下げる
 function downFloor() {
+
     if (floor > 1) {
         floor--;
+
         mapImage.src = `./images/map/floor${floor}.JPG`;
         floorDisplay.textContent = `${floor}階`;
-        upFloorButton.style.backgroundColor = ""; // ボタンのグレーアウトを解除
-    }else {
-        downFloorButton.disabled = true;
-        downFloorButton.style.backgroundColor = "#504f4f"; // ボタンをグレーアウト
     }
+
+    if (floor <= 1) {
+        downFloorButton.disabled = true;
+    } else {
+        downFloorButton.disabled = false;
+    }
+
     upFloorButton.disabled = false;
 }
 
@@ -576,5 +586,6 @@ function debugLocation(lat, lon) {
 document.addEventListener(
     "DOMContentLoaded",
     initializeMap,
+    downFloorButton.disabled = true,
     downFloorButton.style.backgroundColor = "#504f4f"
 );
