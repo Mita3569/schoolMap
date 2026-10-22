@@ -11,6 +11,7 @@ const MAP_WIDTH = 1400;
 const MAP_HEIGHT = 720;
 let floor = 1;
 
+downFloorButton.style.backgroundColor = "#ccc"; // 初期状態で下げるボタンをグレーアウト
 
 const points = {
     NW: { lat: 35.4567725270992,  lon: 133.28876037880545, x: 0,    y: 0   },// 左上
@@ -91,6 +92,7 @@ function upFloor() {
         floor++;
         mapImage.src = `./images/map/floor${floor}.JPG`;
         floorDisplay.textContent = `${floor}階`;
+        upFloorButton.style.backgroundColor = ""; // ボタンのグレーアウトを解除
     }else {
         upFloorButton.disabled = true;
         upFloorButton.style.backgroundColor = "#ccc"; // ボタンをグレーアウト
@@ -104,6 +106,7 @@ function downFloor() {
         floor--;
         mapImage.src = `./images/map/floor${floor}.JPG`;
         floorDisplay.textContent = `${floor}階`;
+        downFloorButton.style.backgroundColor = ""; // ボタンのグレーアウトを解除
     }else {
         downFloorButton.disabled = true;
         downFloorButton.style.backgroundColor = "#ccc"; // ボタンをグレーアウト
