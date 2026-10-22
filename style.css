@@ -176,8 +176,10 @@ button {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 button:disabled {
-    background: #504f4f;
-    color: #ccc;
+    background: #333 !important;
+    color: #888 !important;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 #floor {
