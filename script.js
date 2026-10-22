@@ -538,6 +538,9 @@ function stopLocationTracking() {
 function initializeMap() {
     // 地図の初期表示
     resetZoom();
+    
+    // 階層表示の初期化
+    downFloorButton.disabled = true;
 
     // ポインター操作
     mapContainer.addEventListener(
@@ -585,7 +588,5 @@ function debugLocation(lat, lon) {
 // HTMLの読み込み完了後に実行
 document.addEventListener(
     "DOMContentLoaded",
-    initializeMap,
-    downFloorButton.disabled = true,
-    downFloorButton.style.backgroundColor = "#504f4f"
+    initializeMap
 );
