@@ -19,7 +19,7 @@ const points = {
     SE: { lat: 35.45487325850927, lon: 133.289710786676,   x: 1400, y: 720 } // 右下
 };
 //更新確認用のVersion表示
-console.log("version 1.0.7.1");
+console.log("version 1.0.7.2");
 
 // ズーム設定
 let zoom = 1;
