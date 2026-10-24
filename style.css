@@ -269,7 +269,7 @@ button:disabled {
 #search-button {
     position: fixed;
     z-index: 20;
-    right: 50%;
+    right: 45%;
     top: 15px;
 
     padding: 1px 10px;
