@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.7.3");
+console.log("version 1.0.7.4");
 
 
 //. 1. 初期設定・変数
@@ -15,7 +15,8 @@ const currentMarker = document.getElementById("current-location-marker");
 const MAP_WIDTH = 1400;
 const MAP_HEIGHT = 720;
 let floor = 1;
-
+let currentPixelX = null;
+let currentPixelY = null;
 
 const imageCornerPoints = { //現在地算出のための座標
     NW: { lat: 35.4567725270992,  lon: 133.28876037880545, x: 0,    y: 0   },// 左上
@@ -733,6 +734,9 @@ function updateLocationDisplay(position) {
     }
     const userMarker = latLonToPixel(lat, lon);
 
+    currentPixelX = userMarker.x;
+    currentPixelY = userMarker.y;
+
     document.getElementById("location-accuracy").textContent =
         `精度：約${Math.round(accuracy)} m`;
 
@@ -1055,6 +1059,56 @@ function drawRoute(path) {
     ctx.strokeStyle = "#ff0000";
 
     ctx.stroke();
+}
+
+function navigateTo(destinationName) {
+
+    const destination =
+        destinations[destinationName];
+
+    if (!destination) {
+        console.error("目的地が見つかりません");
+        return;
+    }
+
+    floor = destination.floor;
+
+    mapImage.src =
+        `./images/map/floor${floor}.JPG`;
+
+    floorDisplay.textContent =
+        `${floor}階`;
+
+    upFloorButton.disabled =
+        floor >= 4;
+
+    downFloorButton.disabled =
+        floor <= 1;
+
+    const graph =
+        lines[`floor${floor}`];
+
+    if (!graph) {
+        console.error("この階の経路情報がありません");
+        return;
+    }
+
+    const startPoint =
+        findNearestKeyPoint(
+            currentPixelX,
+            currentPixelY
+        );
+
+    const path =
+        findShortestPath(
+            startPoint,
+            destination.point,
+            graph
+        );
+
+    console.log(path);
+
+    drawRoute(path);
 }
 
 //Debug用の関数
