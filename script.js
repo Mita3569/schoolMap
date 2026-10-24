@@ -28,23 +28,23 @@ const keyPoints = { //ルート作成のための角の各座標　番号は[参
     7: { x: 780, y: 534 }, // 7
     8: { x: 821, y: 534 }, // 8
     9: { x: 780, y: 584 }, // 9
-    10: { x: 821, y: 584 }, // 10
-    11: { x: 780, y: 267 }, // 11
-    12: { x: 821, y: 267 }, // 12
-    13: { x: 780, y: 218 }, // 13
-    14: { x: 821, y: 218 }, // 14
-    15: { x: 780, y: 168 }, // 15
-    16: { x: 821, y: 168 }, // 16
-    17: { x: 780, y: 118 }, // 17
-    18: { x: 821, y: 118 }, // 18
-    19: { x: 737, y: 118 }, // 19
-    20: { x: 737, y: 154 }, // 20
-    21: { x: 694, y: 118 }, // 21
-    22: { x: 694, y: 154 }, // 22
-    23: { x: 694, y: 63 },  // 23
-    24: { x: 694, y: 30 },  // 24
-    25: { x: 737, y: 63 },  // 25
-    26: { x: 737, y: 30 },  // 26
+    10: { x: 821, y: 584 },// 10
+    11: { x: 780, y: 267 },// 11
+    12: { x: 821, y: 63 }, // 12
+    13: { x: 780, y: 218 },// 13
+    14: { x: 821, y: 218 },// 14
+    15: { x: 780, y: 168 },// 15
+    16: { x: 821, y: 168 },// 16
+    17: { x: 780, y: 118 },// 17
+    18: { x: 821, y: 118 },// 18
+    19: { x: 737, y: 118 },// 19
+    20: { x: 737, y: 154 },// 20
+    21: { x: 694, y: 118 },// 21
+    22: { x: 694, y: 154 },// 22
+    23: { x: 694, y: 63 }, // 23
+    24: { x: 694, y: 30 }, // 24
+    25: { x: 737, y: 63 }, // 25
+    26: { x: 737, y: 30 }, // 26
     27:{ x: 780, y: 63 },  // 27
     28:{ x: 780, y: 30 },  // 28
     29:{ x: 740, y: 361 }, // 29
@@ -134,8 +134,8 @@ const lines = {
         8: [7],
         9: [7, 10],
         10: [9],
-        11: [2, 12, 13],
-        12: [11],
+        11: [2, 13],
+        12: [27],
         13: [11, 14, 15],
         14: [13],
         15: [13, 16, 17],
@@ -150,7 +150,7 @@ const lines = {
         24: [23],
         25: [19, 23, 26, 27],
         26: [25],
-        27: [17, 25, 28],
+        27: [12, 17, 25, 28],
         28: [27],
         29: [2, 30, 31],
         30: [29],
@@ -216,6 +216,114 @@ const lines = {
         45: [44, 46],
         46: [45]
     }
+}
+const destinations = { //教室等の場所
+    //階段
+    "階段1-1": {
+        floor: 1,
+        point: 30
+    },
+    "階段1-2": {
+        floor: 1,
+        point: 28
+    },
+    "階段2-1": {
+        floor: 2,
+        point: 30
+    },
+    "階段2-2": {
+        floor: 2,
+        point: 28
+    },
+    "階段3-1": {
+        floor: 3,
+        point: 30
+    },
+    "階段3-2": {
+        floor: 3,
+        point: 28
+    },
+    "階段4": {
+        floor: 4,
+        point: 28
+    },
+    "サイバーセキュリティ": {
+        floor: 1,
+        point: 6
+    },
+    "4-C": {
+        floor: 1,
+        point: 32
+    },
+    "3-J": {
+        floor: 2,
+        point: 4
+    },
+    "内田研・ハンドボール": {
+        floor: 2,
+        point: 6
+    },
+    "林研": {
+        floor: 2,
+        point: 8
+    },
+    "同窓会": {
+        floor: 2,
+        point: 10
+    },
+    "3-A": {
+        floor: 2,
+        point: 16
+    },
+    "1-5": {
+        floor: 2,
+        point: 18
+    },
+    "1-4": {
+        floor: 2,
+        point: 20
+    },
+    "1-3": {
+        floor: 2,
+        point: 22
+    },
+    "1-2": {
+        floor: 2,
+        point: 24
+    },
+    "1-1": {
+        floor: 2,
+        point: 26
+    },
+    "2-1": {
+        floor: 3,
+        point: 26
+    },
+    "2-2": {
+        floor: 3,
+        point: 24
+    },
+    "2-3": {
+        floor: 3,
+        point: 22
+    },
+    "2-4": {
+        floor :3,
+        point: 20
+    },
+    "2-5": {
+        floor: 3,
+        point: 18
+    },
+    "3-C": {
+        floor: 3,
+        point: 16
+    },
+    "4-E": {
+        floor: 3,
+        point: 14
+    }
+
 }
 
 //更新確認用のVersion表示
@@ -770,7 +878,175 @@ function initializeMap() {
         { passive: false }
     );
 
+    const routeCanvas =
+    document.createElement("canvas");
+
+    routeCanvas.id = "route-canvas";
+
+    routeCanvas.width = MAP_WIDTH;
+    routeCanvas.height = MAP_HEIGHT;
+
+    routeCanvas.style.position = "absolute";
+    routeCanvas.style.left = "0";
+    routeCanvas.style.top = "0";
+    routeCanvas.style.pointerEvents = "none";
+    routeCanvas.style.zIndex = "4";
+
+    document
+        .getElementById("map-image-wrapper")
+        .appendChild(routeCanvas);
+
     // 位置情報は自動開始せず、ボタンから開始する
+}
+
+//. 9. ルートシステム
+function findNearestKeyPoint(x, y) {
+
+    let nearestId = null;
+    let minDistance = Infinity;
+
+    for (const id in keyPoints) {
+
+        const point = keyPoints[id];
+
+        const distance = Math.hypot(
+            point.x - x,
+            point.y - y
+        );
+
+        if (distance < minDistance) {
+            minDistance = distance;
+            nearestId = Number(id);
+        }
+    }
+
+    return nearestId;
+}
+// 2つのキーポイント間の距離を計算する関数
+function getDistance(a, b) {
+
+    const pointA = keyPoints[a];
+    const pointB = keyPoints[b];
+
+    return Math.hypot(
+        pointA.x - pointB.x,
+        pointA.y - pointB.y
+    );
+}
+// ダイクストラ法で最短経路を求める関数
+function findShortestPath(start, goal, graph) {
+
+    const distances = {};
+    const previous = {};
+    const unvisited = new Set();
+
+    for (const node in graph) {
+        distances[node] = Infinity;
+        previous[node] = null;
+        unvisited.add(Number(node));
+    }
+
+    distances[start] = 0;
+
+    while (unvisited.size > 0) {
+
+        let current = null;
+
+        for (const node of unvisited) {
+
+            if (
+                current === null ||
+                distances[node] < distances[current]
+            ) {
+                current = node;
+            }
+        }
+
+        if (current === goal) {
+            break;
+        }
+
+        unvisited.delete(current);
+
+        const neighbors = graph[current] || [];
+
+        for (const neighbor of neighbors) {
+
+            const alt =
+                distances[current] +
+                getDistance(current, neighbor);
+
+            if (alt < distances[neighbor]) {
+
+                distances[neighbor] = alt;
+                previous[neighbor] = current;
+            }
+        }
+    }
+
+    const path = [];
+
+    let current = goal;
+
+    while (current !== null) {
+
+        path.unshift(current);
+        current = previous[current];
+    }
+
+    return path;
+}
+
+function drawRoute(path) {
+
+    const canvas =
+        document.getElementById("route-canvas");
+
+    if (!canvas) return;
+
+    const ctx =
+        canvas.getContext("2d");
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    if (path.length < 2) return;
+
+    ctx.beginPath();
+
+    const first =
+        keyPoints[path[0]];
+
+    ctx.moveTo(
+        first.x,
+        first.y
+    );
+
+    for (
+        let i = 1;
+        i < path.length;
+        i++
+    ) {
+
+        const point =
+            keyPoints[path[i]];
+
+        ctx.lineTo(
+            point.x,
+            point.y
+        );
+    }
+
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = "#ff0000";
+
+    ctx.stroke();
 }
 
 //Debug用の関数
