@@ -12,14 +12,69 @@ const MAP_HEIGHT = 720;
 let floor = 1;
 
 
-const points = {
+const imageCornerPoints = { //現在地算出のための座標
     NW: { lat: 35.4567725270992,  lon: 133.28876037880545, x: 0,    y: 0   },// 左上
     SW: { lat: 35.45594396885021, lon: 133.28795942296918, x: 0,    y: 720 },// 左下
     NE: { lat: 35.455699980279974,lon: 133.29048014375377, x: 1400, y: 0   },// 右上
     SE: { lat: 35.45487325850927, lon: 133.289710786676,   x: 1400, y: 720 } // 右下
 };
+const keyPoints = { //ルート作成のための角の各座標　番号は[参考.JPG]参照
+    a: { x: 824, y: 361 }, // 1
+    b: { x: 780, y: 361 }, // 2
+    c: { x: 780, y: 434 }, // 3
+    d: { x: 821, y: 434 }, // 4
+    e: { x: 780, y: 484 }, // 5
+    f: { x: 821, y: 484 }, // 6
+    g: { x: 780, y: 534 }, // 7
+    h: { x: 821, y: 534 }, // 8
+    i: { x: 780, y: 584 }, // 9
+    j: { x: 821, y: 584 }, // 10
+    k: { x: 780, y: 267 }, // 11
+    l: { x: 821, y: 267 }, // 12
+    m: { x: 780, y: 218 }, // 13
+    n: { x: 821, y: 218 }, // 14
+    o: { x: 780, y: 168 }, // 15
+    p: { x: 821, y: 168 }, // 16
+    q: { x: 780, y: 118 }, // 17
+    r: { x: 821, y: 118 }, // 18
+    s: { x: 737, y: 118 }, // 19
+    t: { x: 737, y: 154 }, // 20
+    u: { x: 694, y: 118 }, // 21
+    v: { x: 694, y: 154 }, // 22
+    w: { x: 694, y: 63 },  // 23
+    x: { x: 694, y: 30 },  // 24
+    y: { x: 737, y: 63 },  // 25
+    z: { x: 737, y: 30 },  // 26
+    aa:{ x: 780, y: 63 },  // 27
+    ab:{ x: 780, y: 30 },  // 28
+    ac:{ x: 740, y: 361 }, // 29
+    ad:{ x: 740, y: 403 }, // 30
+    ae:{ x: 650, y: 361 }, // 31
+    af:{ x: 650, y: 403 }, // 32
+    ag:{ x: 503, y: 361 }, // 33
+    ah:{ x: 503, y: 157 }, // 34
+    ai:{ x: 503, y: 640 }, // 35
+    aj:{ x: 301, y: 361 }, // 36
+    ak:{ x: 301, y: 157 }, // 37
+    al:{ x: 301, y: 640 }, // 38
+    am:{ x: 90,  y: 361 }, // 39
+    an:{ x: 90,  y: 244 }, // 40
+    ao:{ x: 90,  y: 497 }, // 41
+    ap:{ x: 90,  y: 625 }, // 42
+    aq:{ x: 900, y: 361 }, // 43
+    ar:{ x: 927, y: 428 }, // 44
+    as:{ x: 1006,y: 428 }, // 45
+    at:{ x: 1026,y: 374 }, // 46
+    au:{ x: 1117,y: 374 }, // 47
+    av:{ x: 1154,y: 374 }, // 48
+    aw:{ x: 1154,y: 413 }, // 49
+    ax:{ x: 1179,y: 413 }, // 50
+    ay:{ x: 1170,y: 376 }, // 51
+    az:{ x: 1248,y: 413 }, // 52
+    ba:{ x: 1248,y: 376 }, // 53
+}
 //更新確認用のVersion表示
-console.log("version 1.0.7.2");
+console.log("version 1.0.7.3");
 
 // ズーム設定
 let zoom = 1;
@@ -314,9 +369,9 @@ function hideInfo() {
 // 取得した位置情報を画面に表示
 function updateLocationDisplay(position) {
     function latLonToPixel(lat, lon) {
-        const NW = points.NW;
-        const SW = points.SW;
-        const NE = points.NE;
+        const NW = imageCornerPoints.NW;
+        const SW = imageCornerPoints.SW;
+        const NE = imageCornerPoints.NE;
 
         const vxLon = NE.lon - NW.lon;
         const vxLat = NE.lat - NW.lat;
