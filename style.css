@@ -269,7 +269,7 @@ button:disabled {
 #search-button {
     position: fixed;
     z-index: 20;
-    right: 45%;
+    right: 55%;
     top: 15px;
 
     padding: 1px 10px;
@@ -290,7 +290,7 @@ button:disabled {
 #clearButton {
     position: fixed;
     z-index: 20;
-    right: 55%;
+    right: 45%;
     top: 15px;
 
     padding: 1px 10px;
