@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.8");
+console.log("version 1.0.8.1");
 
 
 //. 1. 初期設定・変数
@@ -1141,6 +1141,10 @@ function navigateTo(destinationName) {
             destination.point,
             graph
         );
+
+    mapImage.onload = () => {
+        drawRoute(path);
+    };
 
     console.log(path);
 
