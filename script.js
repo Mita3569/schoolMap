@@ -1120,8 +1120,6 @@ function drawRoute(path) {
     ctx.strokeStyle = "#ff0000";
 
     ctx.stroke();
-
-    clearButton.hidden = false;
 }
 
 function navigateTo(destinationName) {
@@ -1180,6 +1178,7 @@ function navigateTo(destinationName) {
     mapImage.onload = () => {
         drawRoute(path);
     };
+    clearButton.hidden = false;
 }
 function createDestinationButtons() {
 
