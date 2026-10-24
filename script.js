@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.8.1");
+console.log("version 1.0.8.2");
 
 
 //. 1. 初期設定・変数
@@ -778,11 +778,6 @@ function updateLocationDisplay(position) {
 
 // 位置情報を取得できたとき
 function onLocationSuccess(position) {
-    console.log(
-        "位置更新",
-        new Date(position.timestamp).toLocaleTimeString("ja-JP")
-    );
-
     updateLocationDisplay(position);
 }
 
@@ -1149,6 +1144,26 @@ function navigateTo(destinationName) {
     console.log(path);
 
     drawRoute(path);
+
+    console.log(
+        "startPoint",
+        startPoint
+    );
+
+    console.log(
+        "goal",
+        destination.point
+    );
+
+    console.log(
+        "floor",
+        floor
+    );
+
+    console.log(
+        "path",
+        path
+    );
 }
 function createDestinationButtons() {
 
