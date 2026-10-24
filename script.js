@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.8.3");
+console.log("version 1.0.8.4");
 
 
 //. 1. 初期設定・変数
@@ -218,6 +218,18 @@ const lines = {
         44: [43, 45],
         45: [44, 46],
         46: [45]
+    },
+    floor4: {
+        17: [19, 27],
+        19: [17, 20, 21, 25],
+        20: [19],
+        21: [19, 22],
+        22: [21],
+        23: [24, 25],
+        24: [23],
+        25: [23, 26, 27],
+        26: [25],
+        27: [17, 25, 28]
     }
 }
 const destinations = { //教室等の場所
@@ -334,8 +346,22 @@ const destinations = { //教室等の場所
         floor: 3,
         point : 12
     },
-
-
+    "4-M": {
+        floor: 4,
+        point: 26
+    },
+    "起業家育成": {
+        floor: 4,
+        point: 24
+    },
+    "ロボコン": {
+        floor: 4,
+        point: 22
+    },
+    "4-J": {
+        floor: 4,
+        point: 20
+    }
 }
 
 // ズーム設定
@@ -1075,14 +1101,6 @@ function drawRoute(path) {
     const first =
         keyPoints[path[0]];
 
-    const scaleX =
-    canvas.clientWidth /
-    MAP_WIDTH;
-
-    const scaleY =
-    canvas.clientHeight /
-    MAP_HEIGHT;
-
     ctx.moveTo(
         first.x,
         first.y
@@ -1153,7 +1171,8 @@ function navigateTo(destinationName) {
     const startPoint =
         findNearestKeyPointInGraph(
             currentPixelX,
-            currentPixelY
+            currentPixelY,
+            graph
         );
 
     const path =
@@ -1169,7 +1188,6 @@ function navigateTo(destinationName) {
 
     console.log(path);
 
-    drawRoute(path);
 
     console.log(
         "startPoint",
