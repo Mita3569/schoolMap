@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.8.7");
+console.log("version 1.0.8.8");
 
 //. 1. 初期設定・変数
 
@@ -16,6 +16,7 @@ const MAP_HEIGHT = 720;
 let floor = 1;
 let currentPixelX = null;
 let currentPixelY = null;
+const searchButton = document.getElementById("search-button");
 
 const imageCornerPoints = { //現在地算出のための座標
     NW: { lat: 35.4567725270992,  lon: 133.28876037880545, x: 0,    y: 0   },// 左上
@@ -800,10 +801,12 @@ function updateLocationDisplay(position) {
 // 位置情報を取得できたとき
 function onLocationSuccess(position) {
     updateLocationDisplay(position);
+    searchButton.disabled = true;
 }
 
 // 位置情報を取得できなかったとき
 function onLocationError(error) {
+    searchButton.disabled = false;
     const status = document.getElementById("location-status");
 
     const messages = {

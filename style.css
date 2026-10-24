@@ -282,6 +282,11 @@ button:disabled {
     font-weight: bold;
 }
 
+#search-button:disabled {
+    background: rgba(125, 125, 125, 0.865);
+    cursor: not-allowed;
+}
+
 #search-panel {
     position: fixed;
     z-index: 100;
