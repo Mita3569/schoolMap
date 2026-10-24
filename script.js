@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.7.8");
+console.log("version 1.0.7.9");
 
 
 //. 1. 初期設定・変数
@@ -997,13 +997,23 @@ function findShortestPath(start, goal, graph) {
             }
         }
     }
+    if (
+        distances[goal] === Infinity
+    ) {
+        console.error(
+            "目的地に到達できません"
+        );
+        return [];
+    }
 
     const path = [];
 
     let current = goal;
 
-    while (current !== null) {
-
+    while (
+        current !== null &&
+        current !== undefined
+    ) {
         path.unshift(current);
         current = previous[current];
     }
