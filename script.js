@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.8.4");
+console.log("version 1.0.8.5");
 
 
 //. 1. 初期設定・変数
@@ -919,6 +919,8 @@ function initializeMap() {
 
     routeCanvas.width = MAP_WIDTH;
     routeCanvas.height = MAP_HEIGHT;
+    routeCanvas.style.width = "100%";
+    routeCanvas.style.height = "100%";
 
     routeCanvas.style.position = "absolute";
     routeCanvas.style.left = "0";
@@ -1075,15 +1077,6 @@ function drawRoute(path) {
         document.getElementById("route-canvas");
 
     if (!canvas) return;
-
-    const imgRect =
-        mapImage.getBoundingClientRect();
-
-    canvas.style.width =
-        `${imgRect.width}px`;
-
-    canvas.style.height =
-        `${imgRect.height}px`;
 
     const ctx =
         canvas.getContext("2d");

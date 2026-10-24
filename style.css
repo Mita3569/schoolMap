@@ -310,6 +310,19 @@ button:disabled {
     gap: 8px;
 }
 
+#destination-closed {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+
+    background: #f0f0f0;
+
+    text-align: left;
+}
+
 .destination-button {
     padding: 10px;
     border: none;
