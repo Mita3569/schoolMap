@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.8.8");
+console.log("version 1.0.9");
 
 //. 1. 初期設定・変数
 
@@ -801,12 +801,12 @@ function updateLocationDisplay(position) {
 // 位置情報を取得できたとき
 function onLocationSuccess(position) {
     updateLocationDisplay(position);
-    searchButton.disabled = true;
+    searchButton.disabled = false;
 }
 
 // 位置情報を取得できなかったとき
 function onLocationError(error) {
-    searchButton.disabled = false;
+    searchButton.disabled = true;
     const status = document.getElementById("location-status");
 
     const messages = {
@@ -866,6 +866,7 @@ function stopLocationTracking() {
         navigator.geolocation.clearWatch(watchId);
         watchId = null;
     }
+    searchButton.disabled = true;
 
     document.getElementById("location-status").textContent =
         "状態：取得を停止しました。";
