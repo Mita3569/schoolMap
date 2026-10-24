@@ -275,7 +275,7 @@ button:disabled {
     padding: 1px 10px;
 
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(239, 235, 229, 0.95);
     color: #222;
 
     font-size: 22px;
@@ -296,7 +296,7 @@ button:disabled {
     padding: 1px 10px;
 
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(239, 235, 229, 0.95);
     color: #ee4d4d;
 
     font-size: 22px;
