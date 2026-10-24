@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.7.9");
+console.log("version 1.0.8");
 
 
 //. 1. 初期設定・変数
@@ -1063,8 +1063,8 @@ function drawRoute(path) {
     MAP_HEIGHT;
 
     ctx.moveTo(
-        first.x * scaleX,
-        first.y * scaleY
+        first.x,
+        first.y
     );
 
     for (
@@ -1077,8 +1077,8 @@ function drawRoute(path) {
             keyPoints[path[i]];
 
         ctx.lineTo(
-            point.x * scaleX,
-            point.y * scaleY
+            point.x,
+            point.y
         );
     }
 
