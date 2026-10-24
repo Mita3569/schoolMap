@@ -269,10 +269,10 @@ button:disabled {
 #search-button {
     position: fixed;
     z-index: 20;
-    text-align: center;
+    right: 50%;
     top: 15px;
 
-    padding: 10px 16px;
+    padding: 1px 10px;
 
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.95);
