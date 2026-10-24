@@ -1,7 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.8.6");
-
+console.log("version 1.0.8.7");
 
 //. 1. 初期設定・変数
 
@@ -793,11 +792,6 @@ function updateLocationDisplay(position) {
 
     currentMarker.hidden = false;
     const test = latLonToPixel(lat, lon);
-    console.log(test);
-    console.log(
-    userMarker.x * scaleX,
-    userMarker.y * scaleY
-    );
 }
 
 
@@ -1179,29 +1173,6 @@ function navigateTo(destinationName) {
     mapImage.onload = () => {
         drawRoute(path);
     };
-
-    console.log(path);
-
-
-    console.log(
-        "startPoint",
-        startPoint
-    );
-
-    console.log(
-        "goal",
-        destination.point
-    );
-
-    console.log(
-        "floor",
-        floor
-    );
-
-    console.log(
-        "path",
-        path
-    );
 }
 function createDestinationButtons() {
 
