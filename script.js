@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.7.4");
+console.log("version 1.0.7.5");
 
 
 //. 1. 初期設定・変数
@@ -908,6 +908,8 @@ function initializeMap() {
         .getElementById("map-image-wrapper")
         .appendChild(routeCanvas);
 
+    createDestinationButtons();
+
     // 位置情報は自動開始せず、ボタンから開始する
 }
 
@@ -1110,6 +1112,47 @@ function navigateTo(destinationName) {
 
     drawRoute(path);
 }
+function createDestinationButtons() {
+
+    const list =
+        document.getElementById(
+            "destination-list"
+        );
+
+    list.innerHTML = "";
+
+    for (const name in destinations) {
+
+        const button =
+            document.createElement("button");
+
+        button.textContent = name;
+
+        button.className =
+            "destination-button";
+
+        button.onclick = () => {
+
+            navigateTo(name);
+
+            toggleSearch();
+        };
+
+        list.appendChild(button);
+    }
+}
+
+
+function toggleSearch() {
+
+    const panel =
+        document.getElementById(
+            "search-panel"
+        );
+
+    panel.hidden = !panel.hidden;
+}
+
 
 //Debug用の関数
 function debugLocation(lat, lon) {

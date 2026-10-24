@@ -85,10 +85,24 @@
   </nav>
 
   <!-- 場所検索機能 -->
-   <button type="button"
-            id="search-button"
-            onclick="toggleSearch()"
-            aria-label="場所検索">🔍</button>
+  <button type="button"
+          id="search-button"
+          onclick="toggleSearch()"
+          aria-label="場所検索">🔍
+  </button>
+    <!-- 検索パネル -->
+  <div id="search-panel" hidden>
+
+      <h3>行きたい場所を洗濯してください。</h3>
+
+      <div id="destination-list"></div>
+
+      <button onclick="toggleSearch()">
+          閉じる
+      </button>
+
+  </div>
+  
 
   <script src="./script.js"></script>
 </body>
