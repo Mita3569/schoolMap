@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.7.6");
+console.log("version 1.0.7.7");
 
 
 //. 1. 初期設定・変数
@@ -1012,19 +1012,20 @@ function findShortestPath(start, goal, graph) {
 }
 
 function drawRoute(path) {
+
+    const canvas =
+        document.getElementById("route-canvas");
+
+    if (!canvas) return;
+
     const imgRect =
-    mapImage.getBoundingClientRect();
+        mapImage.getBoundingClientRect();
 
     canvas.style.width =
         `${imgRect.width}px`;
 
     canvas.style.height =
         `${imgRect.height}px`;
-
-    const canvas =
-        document.getElementById("route-canvas");
-
-    if (!canvas) return;
 
     const ctx =
         canvas.getContext("2d");
