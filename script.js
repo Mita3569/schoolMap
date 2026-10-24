@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.7.7");
+console.log("version 1.0.7.8");
 
 
 //. 1. 初期設定・変数
@@ -1081,6 +1081,13 @@ function drawRoute(path) {
 }
 
 function navigateTo(destinationName) {
+    if (
+    currentPixelX === null ||
+    currentPixelY === null
+    ) {
+        alert("先に位置情報を取得してください");
+        return;
+    }
 
     const destination =
         destinations[destinationName];
