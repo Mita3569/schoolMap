@@ -17,6 +17,7 @@ let floor = 1;
 let currentPixelX = null;
 let currentPixelY = null;
 const searchButton = document.getElementById("search-button");
+const clearButton = document.getElementById("clear-route");
 
 const imageCornerPoints = { //現在地算出のための座標
     NW: { lat: 35.4567725270992,  lon: 133.28876037880545, x: 0,    y: 0   },// 左上
@@ -1119,6 +1120,8 @@ function drawRoute(path) {
     ctx.strokeStyle = "#ff0000";
 
     ctx.stroke();
+
+    clearButton.hidden = false;
 }
 
 function navigateTo(destinationName) {
@@ -1219,6 +1222,23 @@ function toggleSearch() {
     panel.hidden = !panel.hidden;
 }
 
+function clearRoute() {
+    const canvas =
+        document.getElementById("route-canvas");
+
+    if (!canvas) return;
+
+    const ctx =
+        canvas.getContext("2d");
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+    clearButton.hidden = true;
+}
 
 //Debug用の関数
 function debugLocation(lat, lon) {

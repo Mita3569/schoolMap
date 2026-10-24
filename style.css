@@ -287,6 +287,23 @@ button:disabled {
     cursor: not-allowed;
 }
 
+#clearButton {
+    position: fixed;
+    z-index: 20;
+    right: 55%;
+    top: 15px;
+
+    padding: 1px 10px;
+
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #ee4d4d;
+
+    font-size: 22px;
+    font-weight: bold;
+
+}
+
 #search-panel {
     position: fixed;
     z-index: 100;
