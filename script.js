@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.8.5");
+console.log("version 1.0.8.6");
 
 
 //. 1. 初期設定・変数
@@ -265,7 +265,7 @@ const destinations = { //教室等の場所
     },
     "サイバーセキュリティ": {
         floor: 1,
-        point: 6
+        point: 8
     },
     "4-C": {
         floor: 1,
