@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.8.2");
+console.log("version 1.0.8.3");
 
 
 //. 1. 初期設定・変数
@@ -909,6 +909,7 @@ function initializeMap() {
 }
 
 //. 9. ルートシステム
+// 全体の最近傍地点を調べる
 function findNearestKeyPoint(x, y) {
 
     let nearestId = null;
@@ -917,6 +918,31 @@ function findNearestKeyPoint(x, y) {
     for (const id in keyPoints) {
 
         const point = keyPoints[id];
+
+        const distance = Math.hypot(
+            point.x - x,
+            point.y - y
+        );
+
+        if (distance < minDistance) {
+            minDistance = distance;
+            nearestId = Number(id);
+        }
+    }
+
+    return nearestId;
+}
+// 階層ごとの最近傍地点を調べる
+function findNearestKeyPointInGraph(x, y, graph) {
+
+    let nearestId = null;
+    let minDistance = Infinity;
+
+    for (const id in graph) {
+
+        const point = keyPoints[id];
+
+        if (!point) continue;
 
         const distance = Math.hypot(
             point.x - x,
@@ -1125,7 +1151,7 @@ function navigateTo(destinationName) {
     }
 
     const startPoint =
-        findNearestKeyPoint(
+        findNearestKeyPointInGraph(
             currentPixelX,
             currentPixelY
         );
