@@ -1107,8 +1107,8 @@ function drawRoute(path) {
         keyPoints[path[0]];
 
     ctx.moveTo(
-        first.x * scaleX,
-        first.y * scaleY
+        first.x,
+        first.y
     );
 
     for (
@@ -1121,8 +1121,8 @@ function drawRoute(path) {
             keyPoints[path[i]];
 
         ctx.lineTo(
-            point.x * scaleX,
-            point.y * scaleY
+            point.x,
+            point.y
         );
     }
 
