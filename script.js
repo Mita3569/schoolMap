@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.9.6");
+console.log("version 1.0.9.7");
 
 //. 1. 初期設定・変数
 
@@ -18,6 +18,7 @@ let currentPixelX = null;
 let currentPixelY = null;
 const searchButton = document.getElementById("search-button");
 const clearButton = document.getElementById("clear-route");
+let currentDestinationName = null;
 
 const imageCornerPoints = { //現在地算出のための座標
     NW: { lat: 35.4567725270992,  lon: 133.28876037880545, x: 0,    y: 0   },// 左上
@@ -795,6 +796,12 @@ function updateLocationDisplay(position) {
 
     currentMarker.hidden = false;
     const test = latLonToPixel(lat, lon);
+
+    if (currentDestinationName) {
+
+    navigateTo(currentDestinationName);
+
+    }
 }
 
 
@@ -1113,10 +1120,14 @@ function drawRoute(path) {
 
     ctx.beginPath();
 
-    const first =
-        keyPoints[path[0]];
+    const first = keyPoints[path[0]];
 
     ctx.moveTo(
+        currentPixelX,
+        currentPixelY
+    );
+
+    ctx.lineTo(
         first.x,
         first.y
     );
@@ -1138,6 +1149,9 @@ function drawRoute(path) {
 }
 
 function navigateTo(destinationName) {
+
+    currentDestinationName = destinationName;
+
     if (
     currentPixelX === null ||
     currentPixelY === null
