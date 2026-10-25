@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.9.3");
+console.log("version 1.0.9.4");
 
 //. 1. 初期設定・変数
 
@@ -656,50 +656,7 @@ function hideInfo() {
 //. 6. 現在地の座標表示
 
 
-// 取得した位置情報を画面に表示
-function updateLocationDisplay(position) {
-    function latLonToPixel(lat, lon) {
-        const NW = imageCornerPoints.NW;
-        const SW = imageCornerPoints.SW;
-        const NE = imageCornerPoints.NE;
-
-        const vxLon = NE.lon - NW.lon;
-        const vxLat = NE.lat - NW.lat;
-
-        const vyLon = SW.lon - NW.lon;
-        const vyLat = SW.lat - NW.lat;
-
-        const pxLon = lon - NW.lon;
-        const pxLat = lat - NW.lat;
-
-        const det =
-            vxLon * vyLat -
-            vyLon * vxLat;
-
-        const u =
-            (pxLon * vyLat -
-            vyLon * pxLat) / det;
-
-        const v =
-            (vxLon * pxLat -
-            pxLon * vxLat) / det;
-
-        return {
-            x: u * MAP_WIDTH,
-            y: v * MAP_HEIGHT
-        };
-    }
-
-    const lat = position.coords.latitude; //現在地の緯度の取得
-    const lon = position.coords.longitude; //現在地の経度の取得
-
-    const accuracy = position.coords.accuracy;
-    const time = new Date(position.timestamp)
-        .toLocaleTimeString("ja-JP");
-
-    currentLatitude = lat;
-    currentLongitude = lon;
-    function getDisplayedImageRect() {
+function getDisplayedImageRect() {
 
         const containerWidth =
             mapImage.clientWidth;
@@ -759,7 +716,51 @@ function updateLocationDisplay(position) {
             offsetX,
             offsetY
         };
+}
+
+// 取得した位置情報を画面に表示
+function updateLocationDisplay(position) {
+    function latLonToPixel(lat, lon) {
+        const NW = imageCornerPoints.NW;
+        const SW = imageCornerPoints.SW;
+        const NE = imageCornerPoints.NE;
+
+        const vxLon = NE.lon - NW.lon;
+        const vxLat = NE.lat - NW.lat;
+
+        const vyLon = SW.lon - NW.lon;
+        const vyLat = SW.lat - NW.lat;
+
+        const pxLon = lon - NW.lon;
+        const pxLat = lat - NW.lat;
+
+        const det =
+            vxLon * vyLat -
+            vyLon * vxLat;
+
+        const u =
+            (pxLon * vyLat -
+            vyLon * pxLat) / det;
+
+        const v =
+            (vxLon * pxLat -
+            pxLon * vxLat) / det;
+
+        return {
+            x: u * MAP_WIDTH,
+            y: v * MAP_HEIGHT
+        };
     }
+
+    const lat = position.coords.latitude; //現在地の緯度の取得
+    const lon = position.coords.longitude; //現在地の経度の取得
+
+    const accuracy = position.coords.accuracy;
+    const time = new Date(position.timestamp)
+        .toLocaleTimeString("ja-JP");
+
+    currentLatitude = lat;
+    currentLongitude = lon;
     const userMarker = latLonToPixel(lat, lon);
 
     currentPixelX = userMarker.x;
@@ -1077,6 +1078,21 @@ function drawRoute(path) {
 
     if (!canvas) return;
 
+    const rect =
+        getDisplayedImageRect();
+
+    canvas.style.left =
+        `${rect.offsetX}px`;
+
+    canvas.style.top =
+        `${rect.offsetY}px`;
+
+    canvas.style.width =
+        `${rect.width}px`;
+
+    canvas.style.height =
+        `${rect.height}px`;
+
     const ctx =
         canvas.getContext("2d");
 
@@ -1089,6 +1105,12 @@ function drawRoute(path) {
 
     if (path.length < 2) return;
 
+    const scaleX =
+        canvas.width / MAP_WIDTH;
+
+    const scaleY =
+        canvas.height / MAP_HEIGHT;
+
     ctx.beginPath();
 
     const first =
@@ -1099,11 +1121,7 @@ function drawRoute(path) {
         first.y
     );
 
-    for (
-        let i = 1;
-        i < path.length;
-        i++
-    ) {
+    for (let i = 1; i < path.length; i++) {
 
         const point =
             keyPoints[path[i]];
@@ -1114,11 +1132,8 @@ function drawRoute(path) {
         );
     }
 
-    ctx.lineJoin = "round";
-    ctx.lineCap = "round";
     ctx.lineWidth = 10;
-    ctx.strokeStyle = "#ff0000";
-
+    ctx.strokeStyle = "red";
     ctx.stroke();
 }
 
