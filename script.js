@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.9.2");
+console.log("version 1.0.9.3");
 
 //. 1. 初期設定・変数
 
@@ -1074,18 +1074,6 @@ function drawRoute(path) {
 
     const canvas =
         document.getElementById("route-canvas");
-
-    const imgRect =
-        mapImage.getBoundingClientRect();
-
-    const scaleX = imgRect.width / MAP_WIDTH;
-    const scaleY = imgRect.height / MAP_HEIGHT;
-
-    canvas.style.width =
-    `${imgRect.width}px`;
-
-    canvas.style.height =
-        `${imgRect.height}px`;
 
     if (!canvas) return;
 
