@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.9.7");
+console.log("version 1.0.9.8");
 
 //. 1. 初期設定・変数
 
@@ -236,35 +236,6 @@ const lines = {
     }
 }
 const destinations = { //教室等の場所
-    //階段
-    "階段1-1": {
-        floor: 1,
-        point: 30
-    },
-    "階段1-2": {
-        floor: 1,
-        point: 28
-    },
-    "階段2-1": {
-        floor: 2,
-        point: 30
-    },
-    "階段2-2": {
-        floor: 2,
-        point: 28
-    },
-    "階段3-1": {
-        floor: 3,
-        point: 30
-    },
-    "階段3-2": {
-        floor: 3,
-        point: 28
-    },
-    "階段4": {
-        floor: 4,
-        point: 28
-    },
     "サイバーセキュリティ": {
         floor: 1,
         point: 8
@@ -366,6 +337,20 @@ const destinations = { //教室等の場所
         point: 20
     }
 }
+const stairGroups = { //階段の場所
+    stairA: {
+        1: 30,
+        2: 30,
+        3: 30
+    },
+
+    stairB: {
+        1: 28,
+        2: 28,
+        3: 28,
+        4: 28
+    }
+};
 
 // ズーム設定
 let zoom = 1;
@@ -448,6 +433,9 @@ function upFloor() {
     }
 
     downFloorButton.disabled = false;
+    if (currentDestinationName) {
+    navigateTo(currentDestinationName);
+}
 }
 
 // 階層を下げる
@@ -467,6 +455,9 @@ function downFloor() {
     }
 
     upFloorButton.disabled = false;
+    if (currentDestinationName) {
+    navigateTo(currentDestinationName);
+}
 }
 
 // 拡大ボタン
@@ -1153,8 +1144,8 @@ function navigateTo(destinationName) {
     currentDestinationName = destinationName;
 
     if (
-    currentPixelX === null ||
-    currentPixelY === null
+        currentPixelX === null ||
+        currentPixelY === null
     ) {
         alert("先に位置情報を取得してください");
         return;
@@ -1168,25 +1159,16 @@ function navigateTo(destinationName) {
         return;
     }
 
-    floor = destination.floor;
-
-    mapImage.src =
-        `./images/map/floor${floor}.JPG`;
-
-    floorDisplay.textContent =
-        `${floor}階`;
-
-    upFloorButton.disabled =
-        floor >= 4;
-
-    downFloorButton.disabled =
-        floor <= 1;
+    // 現在表示中の階
+    const currentFloor = floor;
 
     const graph =
-        lines[`floor${floor}`];
+        lines[`floor${currentFloor}`];
 
     if (!graph) {
-        console.error("この階の経路情報がありません");
+        console.error(
+            "この階の経路情報がありません"
+        );
         return;
     }
 
@@ -1197,18 +1179,46 @@ function navigateTo(destinationName) {
             graph
         );
 
+    // デフォルトは目的地そのもの
+    let targetPoint =
+        destination.point;
+
+    // 階が違う場合は階段へ案内
+    if (
+        currentFloor !==
+        destination.floor
+    ) {
+
+        const stair =
+            findBestStair(
+                destination.point,
+                destination.floor
+            );
+
+        targetPoint =
+            stairGroups[stair][currentFloor];
+
+        showInfo(
+            `${destination.floor}階へ移動してください`
+        );
+
+    } else {
+
+        hideInfo();
+    }
+
     const path =
         findShortestPath(
             startPoint,
-            destination.point,
+            targetPoint,
             graph
         );
 
-    mapImage.onload = () => {
-        drawRoute(path);
-    };
+    drawRoute(path);
+
     clearButton.hidden = false;
 }
+
 function createDestinationButtons() {
 
     const list =
@@ -1266,6 +1276,34 @@ function clearRoute() {
         canvas.height
     );
     clearButton.hidden = true;
+}
+
+function findBestStair(destinationPoint, destinationFloor) {
+
+    let best = null;
+    let minDistance = Infinity;
+
+    for (const stairName in stairGroups) {
+
+        const stairPoint =
+            stairGroups[stairName][destinationFloor];
+
+        if (!stairPoint) continue;
+
+        const distance =
+            getDistance(
+                stairPoint,
+                destinationPoint
+            );
+
+        if (distance < minDistance) {
+
+            minDistance = distance;
+            best = stairName;
+        }
+    }
+
+    return best;
 }
 
 //Debug用の関数
