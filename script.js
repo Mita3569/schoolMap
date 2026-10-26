@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.9.8");
+console.log("version 1.0.9.9");
 
 //. 1. 初期設定・変数
 
@@ -125,7 +125,8 @@ const lines = {
         46: [45, 47],
         47: [46, 48],
         48: [47, 49],
-        49: [48]
+        49: [48, 50],
+        50: [49, 51]
     },
     floor2: {
         1: [2, 43],
@@ -182,7 +183,7 @@ const lines = {
         53: [52]
     },
     floor3: {
-        1: [2, 43],
+        1: [2],
         2: [1, 11, 29],
         11: [2, 13],
         12: [27],
@@ -215,11 +216,7 @@ const lines = {
         39: [36, 40, 41],
         40: [39],
         41: [39, 42],
-        42: [41],
-        43: [1, 44],
-        44: [43, 45],
-        45: [44, 46],
-        46: [45]
+        42: [41]
     },
     floor4: {
         17: [19, 27],
@@ -236,6 +233,10 @@ const lines = {
     }
 }
 const destinations = { //教室等の場所
+    "正面玄関": {
+        floor: 1,
+        point: 1
+    },
     "サイバーセキュリティ": {
         floor: 1,
         point: 8
@@ -335,6 +336,21 @@ const destinations = { //教室等の場所
     "4-J": {
         floor: 4,
         point: 20
+    },
+    "交流プラザ": {
+        floor: 1,
+        point: 51,
+        building: "annex"
+    },
+    "創造ゼミ 1": {
+        floor: 2,
+        point: 51,
+        building: "annex"
+    },
+    "創造ゼミ 2": {
+        floor: 2,
+        point: 53,
+        building: "annex"
     }
 }
 const stairGroups = { //階段の場所
@@ -349,8 +365,15 @@ const stairGroups = { //階段の場所
         2: 28,
         3: 28,
         4: 28
+    },
+
+    stairsC: {
+        1: 49,
+        2: 49
     }
 };
+const annexPoints = [47, 48, 49, 50, 51, 52, 53];// 図書館
+
 
 // ズーム設定
 let zoom = 1;
@@ -1154,12 +1177,15 @@ function navigateTo(destinationName) {
     const destination =
         destinations[destinationName];
 
+    const isAnnex =
+    destination.building === "annex";
+
+
     if (!destination) {
         console.error("目的地が見つかりません");
         return;
     }
 
-    // 現在表示中の階
     const currentFloor = floor;
 
     const graph =
@@ -1179,9 +1205,24 @@ function navigateTo(destinationName) {
             graph
         );
 
-    // デフォルトは目的地そのもの
     let targetPoint =
         destination.point;
+    
+    // 別棟へ行く場合
+    if (isAnnex) {
+
+        const path =
+            findShortestPath(
+                startPoint,
+                destination.point,
+                graph
+            );
+
+        drawRoute(path);
+        clearButton.hidden = false;
+
+        return;
+    }
 
     // 階が違う場合は階段へ案内
     if (
