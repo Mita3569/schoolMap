@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.1.0.3");
+console.log("version 1.1.1");
 
 //. 1. 初期設定・変数
 
@@ -791,7 +791,7 @@ function updateLocationDisplay(position) {
         `更新時刻：${time}`;
 
     document.getElementById("location-status").textContent =
-        `状態：取得中 (${Date.now()})`;
+        `状態：取得中`;
         const {
         width: displayedWidth,
         height: displayedHeight,
@@ -869,11 +869,10 @@ function startLocationTracking() {
 
     // 二重起動を防止
     if (watchId !== null) {
-        status.textContent = "状態：すでに取得中です。";
         return;
     }
 
-    status.textContent = "状態：位置情報を取得中...";
+    status.textContent = "状態：位置情報を取得中…";
 
     watchId = navigator.geolocation.watchPosition(
         onLocationSuccess,
