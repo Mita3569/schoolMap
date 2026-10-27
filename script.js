@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.1.0.2");
+console.log("version 1.1.0.3");
 
 //. 1. 初期設定・変数
 
@@ -126,7 +126,10 @@ const lines = {
         47: [46, 48],
         48: [47, 49],
         49: [48, 50],
-        50: [49, 51]
+        50: [49, 51, 52],
+        51: [50],
+        52: [50, 53],
+        53: [52]
     },
     floor2: {
         1: [2, 43],
@@ -1158,17 +1161,7 @@ function drawRoute(path) {
     }
 
     ctx.lineWidth = 10;
-
-    const outsideRoute =
-        path.some(id =>
-            [43,44,45,46].includes(id)
-        );
-
-    ctx.strokeStyle =
-        outsideRoute
-            ? "rgba(255,0,0,0.35)"
-            : "red";
-
+    ctx.strokeStyle = "red";
     ctx.stroke();
 }
 
@@ -1221,14 +1214,73 @@ function navigateTo(destinationName) {
     // 別棟へ行く場合
     if (isAnnex) {
 
+        // 現在1階以外なら、まず本館の階段へ
+        if (currentFloor > 1) {
+
+            const stair =
+                findBestStair(
+                    1, // 正面玄関へ近い階段を選ぶ
+                    1
+                );
+
+            targetPoint =
+                stairGroups[stair][currentFloor];
+
+            showInfo(
+                "まず1階へ降りてください"
+            );
+        }
+
+        // 1階なら正面玄関へ
+        else {
+
+            targetPoint = 1;
+
+            showInfo(
+                "正面玄関から外へ出てください"
+            );
+
+            const distanceToEntrance =
+                Math.hypot(
+                    currentPixelX - keyPoints[1].x,
+                    currentPixelY - keyPoints[1].y
+                );
+
+            // 正面玄関付近まで来たら別棟入口へ切替
+            if (distanceToEntrance < 80) {
+
+                targetPoint = 47;
+
+                showInfo(
+                    "別棟入口へ向かってください"
+                );
+            }
+
+            const distanceToAnnex =
+                Math.hypot(
+                    currentPixelX - keyPoints[47].x,
+                    currentPixelY - keyPoints[47].y
+                );
+
+            // 別棟入口まで来たら目的地へ
+            if (distanceToAnnex < 80) {
+
+                targetPoint =
+                    destination.point;
+
+                hideInfo();
+            }
+        }
+
         const path =
             findShortestPath(
                 startPoint,
-                destination.point,
+                targetPoint,
                 graph
             );
 
         drawRoute(path);
+
         clearButton.hidden = false;
 
         return;
