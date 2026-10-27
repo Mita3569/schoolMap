@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.0.9.9");
+console.log("version 1.1.0.1");
 
 //. 1. 初期設定・変数
 
@@ -1158,7 +1158,17 @@ function drawRoute(path) {
     }
 
     ctx.lineWidth = 10;
-    ctx.strokeStyle = "red";
+
+    const outsideRoute =
+        path.some(id =>
+            [43,44,45,46].includes(id)
+        );
+
+    ctx.strokeStyle =
+        outsideRoute
+            ? "rgba(255,0,0,0.35)"
+            : "red";
+
     ctx.stroke();
 }
 
