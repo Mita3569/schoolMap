@@ -161,6 +161,14 @@ button {
     gap: 8px;
 }
 
+#map-controls {
+    background: #fff7f7;
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    opacity: 0.9;
+}
+
 #map-controls button {
     min-width: 48px;
     min-height: 45px;
@@ -182,6 +190,7 @@ button:disabled {
     cursor: not-allowed;
 }
 
+
 #floor {
     position: fixed;
     z-index: 20;
@@ -201,7 +210,13 @@ button:disabled {
 /* ========================================
    6. 位置情報の開始・停止ボタン
 ======================================== */
-
+#location-controls {
+    background: #fff7f7;
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    opacity: 0.9;
+}
 
 #location-controls {
     position: fixed;
@@ -212,7 +227,6 @@ button:disabled {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    min-width: calc(100vw - 80px);
 }
 
 #location-controls button {
@@ -289,6 +303,11 @@ button:disabled {
     cursor: not-allowed;
 }
 
+#search-img {
+    width: 16px;
+    height: 16px;
+}
+
 #clear-route {
     position: fixed;
     z-index: 20;
@@ -304,6 +323,10 @@ button:disabled {
     font-size: 22px;
     font-weight: bold;
 
+}
+#close-img {
+    width: 16px;
+    height: 16px;
 }
 
 #search-panel {
@@ -406,3 +429,5 @@ button:disabled {
         font-size: min(11px);
     }
 }
+
+
