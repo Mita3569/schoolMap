@@ -309,14 +309,14 @@ button:disabled {
     border: none;
     border-radius: 10px;
 
-    background: rgba(239,235,229,0.95);
+    background: rgba(255, 255, 255, 0.95);
 
     font-size: 22px;
     font-weight: bold;
 }
 
 #search-button:disabled {
-    background: rgba(125, 125, 125, 0.865);
+    background: rgba(255, 255, 255, 0.865);
     cursor: not-allowed;
 }
 
@@ -332,8 +332,6 @@ button:disabled {
     border-radius: 10px;
 
     background: rgba(239,235,229,0.95);
-
-    color: #ee4d4d;
 
     font-size: 22px;
     font-weight: bold;
