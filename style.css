@@ -283,24 +283,33 @@ button:disabled {
 }
 
 #search-spot {
+    position: fixed;
+    z-index: 20;
+
+    top: 15px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    gap: 10px;
+
     background: #fff7f7;
     border-radius: 16px;
     padding: 12px;
+
     box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+
     opacity: 0.9;
 }
 
 #search-button {
-    position: fixed;
-    z-index: 20;
-    right: 55%;
-    top: 15px;
+    padding: 8px 12px;
 
-    padding: 1px 10px;
-
+    border: none;
     border-radius: 10px;
-    background: rgba(239, 235, 229, 0.95);
-    color: #222;
+
+    background: rgba(239,235,229,0.95);
 
     font-size: 22px;
     font-weight: bold;
@@ -317,21 +326,19 @@ button:disabled {
 }
 
 #clear-route {
-    position: fixed;
-    z-index: 20;
-    right: 45%;
-    top: 15px;
+    padding: 8px 12px;
 
-    padding: 1px 10px;
-
+    border: none;
     border-radius: 10px;
-    background: rgba(239, 235, 229, 0.95);
+
+    background: rgba(239,235,229,0.95);
+
     color: #ee4d4d;
 
     font-size: 22px;
     font-weight: bold;
-
 }
+
 #close-img {
     width: 16px;
     height: 16px;
