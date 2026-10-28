@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.1.3");
+console.log("version 1.1.4");
 
 //. 1. 初期設定・変数
 

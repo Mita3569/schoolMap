@@ -119,7 +119,7 @@ button {
     top: 10px;
     left: 10px;
 
-    width: max(125px, calc(100vw - 20px));
+    width: min(125px, calc(100vw - 20px));
     padding: 8px;
 
     border-radius: 10px;
