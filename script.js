@@ -1,6 +1,6 @@
 
 //更新確認用のVersion表示
-console.log("version 1.1.4");
+console.log("version 1.2");
 
 //. 1. 初期設定・変数
 
@@ -235,63 +235,37 @@ const lines = {
         28: [27]
     }
 }
-const destinations = { //教室等の場所
+const destinations = {
+
+    // 入口
     "正面玄関": {
         floor: 1,
         point: 1
     },
-    "サイバーセキュリティ": {
-        floor: 1,
-        point: 8
-    },
-    "4-C": {
-        floor: 1,
-        point: 32
-    },
-    "3-J": {
+
+    // 1年生教室
+    "1-1": {
         floor: 2,
-        point: 4
-    },
-    "内田研・ハンドボール": {
-        floor: 2,
-        point: 6
-    },
-    "林研": {
-        floor: 2,
-        point: 8
-    },
-    "同窓会": {
-        floor: 2,
-        point: 10
-    },
-    "3-A": {
-        floor: 2,
-        point: 16
-    },
-    "1-5": {
-        floor: 2,
-        point: 18
-    },
-    "1-4": {
-        floor: 2,
-        point: 20
-    },
-    "1-3": {
-        floor: 2,
-        point: 22
+        point: 26
     },
     "1-2": {
         floor: 2,
         point: 24
     },
-    "1-1": {
+    "1-3": {
         floor: 2,
-        point: 26
+        point: 22
     },
-    "4-A": {
+    "1-4": {
         floor: 2,
-        point: 32
+        point: 20
     },
+    "1-5": {
+        floor: 2,
+        point: 18
+    },
+
+    // 2年生教室
     "2-1": {
         floor: 3,
         point: 26
@@ -305,41 +279,83 @@ const destinations = { //教室等の場所
         point: 22
     },
     "2-4": {
-        floor :3,
+        floor: 3,
         point: 20
     },
     "2-5": {
         floor: 3,
         point: 18
     },
+
+    // 3年生教室
+    "3-A": {
+        floor: 2,
+        point: 16
+    },
     "3-C": {
         floor: 3,
         point: 16
+    },
+    "3-J": {
+        floor: 2,
+        point: 4
+    },
+
+    // 4年生教室
+    "4-A": {
+        floor: 2,
+        point: 32
+    },
+    "4-C": {
+        floor: 1,
+        point: 32
     },
     "4-E": {
         floor: 3,
         point: 14
     },
-    "数学研究会": {
-        floor: 3,
-        point : 12
+    "4-J": {
+        floor: 4,
+        point: 20
     },
     "4-M": {
         floor: 4,
         point: 26
     },
-    "起業家育成": {
-        floor: 4,
-        point: 24
+
+    // 特別教室・部活動等
+    "サイバーセキュリティ": {
+        floor: 1,
+        point: 8
     },
     "ロボコン": {
         floor: 4,
         point: 22
     },
-    "4-J": {
+    "起業家育成": {
         floor: 4,
-        point: 20
+        point: 24
     },
+    "数学研究会": {
+        floor: 3,
+        point: 12
+    },
+
+    // 研究室等
+    "内田研・ハンドボール": {
+        floor: 2,
+        point: 6
+    },
+    "林研": {
+        floor: 2,
+        point: 8
+    },
+    "同窓会": {
+        floor: 2,
+        point: 10
+    },
+
+    // 別棟
     "交流プラザ": {
         floor: 1,
         point: 51,
@@ -355,7 +371,7 @@ const destinations = { //教室等の場所
         point: 53,
         building: "annex"
     }
-}
+};
 const stairGroups = { //階段の場所
     stairA: {
         1: 30,
